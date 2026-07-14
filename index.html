@@ -1,0 +1,1334 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RS HERMINA — Hospital Command Center 2026</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyMDAgMjAwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CiAgPHJlY3Qgd2lkdGg9IjIwMCIgaGVpZ2h0PSIyMDAiIHJ4PSI0NiIgZmlsbD0iIzBCMTAxNyIvPgogIDxwYXRoIGQ9Ik00MiA0NCBoMTE2IGExNCAxNCAwIDAgMSAxNCAxNCB2NzAgYTE0IDE0IDAgMCAxIC0xNCAxNCBoLTY2IGwtMjggMjYgdi0yNiBoLTIyIGExNCAxNCAwIDAgMSAtMTQgLTE0IHYtNzAgYTE0IDE0IDAgMCAxIDE0IC0xNCB6IiBmaWxsPSJub25lIiBzdHJva2U9IiNDOUE5NjEiIHN0cm9rZS13aWR0aD0iOSIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgogIDxnIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLXdpZHRoPSIxMSI+CiAgICA8bGluZSB4MT0iNjYiIHkxPSIxMjAiIHgyPSI2NiIgeTI9IjEwNCIgc3Ryb2tlPSIjOEM4NTc3Ii8+CiAgICA8bGluZSB4MT0iODkiIHkxPSIxMjAiIHgyPSI4OSIgeTI9IjkwIiBzdHJva2U9IiMxRDlFNzUiLz4KICAgIDxsaW5lIHgxPSIxMTIiIHkxPSIxMjAiIHgyPSIxMTIiIHkyPSI3NiIgc3Ryb2tlPSIjQzlBOTYxIi8+CiAgICA8bGluZSB4MT0iMTM1IiB5MT0iMTIwIiB4Mj0iMTM1IiB5Mj0iNjIiIHN0cm9rZT0iI0VCRDc5QyIvPgogIDwvZz4KPC9zdmc+">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+:root{
+  --bg:#F2F6F3;
+  --bg2:#FFFFFF;
+  --panel:#FFFFFF;
+  --panel2:#F3F8F4;
+  --line:#E3EBE5;
+  --line2:#C7DCCD;
+  --ink:#16262B;
+  --ink2:#5B7075;
+  --ink3:#8FA5A8;
+  --green:#2E9E6B;
+  --sage:#A8CBA4;
+  --deep:#1F7A55;
+  --blue:#1B7FB8;
+  --wood:#C9A87C;
+  --p1:#DC3F52;
+  --p2:#E4892A;
+  --p3:#D9B227;
+  --p4:#2E9E6B;
+  --p5:#93A5A8;
+  --violet:#7C5FCB;
+  --aqua:#2E9E6B;
+  --mint:#7FC3A3;
+  --gold:#B08D3F;
+  --r:14px;
+  --shadow:0 1px 2px rgba(22,38,43,.04),0 8px 24px -12px rgba(22,38,43,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:
+    radial-gradient(1100px 560px at 85% -12%, rgba(168,203,164,.30), transparent 62%),
+    radial-gradient(900px 520px at -5% 0%, rgba(27,127,184,.08), transparent 58%),
+    var(--bg);
+  color:var(--ink);
+  font-family:'IBM Plex Sans','Segoe UI',system-ui,sans-serif;
+  font-size:14px;line-height:1.45;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:60px;
+}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace}
+.wrap{max-width:1560px;margin:0 auto;padding:0 20px}
+
+/* ---------- HEADER ---------- */
+header{
+  position:sticky;top:0;z-index:60;
+  background:linear-gradient(180deg,rgba(255,255,255,.97),rgba(255,255,255,.90));
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.hbar{display:flex;align-items:center;gap:18px;padding:14px 0}
+.logo{display:flex;align-items:center;gap:12px;flex-shrink:0}
+.mark{
+  width:44px;height:44px;border-radius:12px;flex-shrink:0;
+  background:linear-gradient(145deg,var(--green),var(--deep));
+  display:grid;place-items:center;
+  box-shadow:0 0 0 1px rgba(46,158,107,.25),0 8px 20px -8px rgba(46,158,107,.55);
+  position:relative;overflow:hidden;
+}
+.mark svg{width:26px;height:26px}
+.brand h1{font-size:17px;font-weight:700;letter-spacing:-.4px;line-height:1.1}
+.brand span{font-size:10.5px;color:var(--ink3);letter-spacing:1.6px;text-transform:uppercase;font-weight:600}
+
+/* ECG signature */
+.ecg{flex:1;height:46px;position:relative;min-width:120px;overflow:hidden;
+  border-left:1px solid var(--line);border-right:1px solid var(--line);
+  mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);
+}
+.ecg svg{width:100%;height:100%;display:block}
+.ecg path{fill:none;stroke:var(--green);stroke-width:1.7;filter:drop-shadow(0 1px 3px rgba(46,158,107,.35))}
+.ecg .lbl{position:absolute;left:10px;top:4px;font-size:9px;letter-spacing:1.4px;color:var(--ink3);text-transform:uppercase}
+.ecg .bpm{position:absolute;right:10px;bottom:3px;font-size:10px;color:var(--deep);font-weight:600}
+
+.hctl{display:flex;align-items:center;gap:8px;flex-shrink:0}
+select,.btn{
+  background:var(--panel);border:1px solid var(--line2);color:var(--ink);
+  padding:8px 12px;border-radius:9px;font-size:12.5px;font-family:inherit;cursor:pointer;
+  transition:.18s;font-weight:500;
+}
+select:hover,.btn:hover{border-color:var(--green);background:var(--panel2)}
+select:focus-visible,.btn:focus-visible,.tab:focus-visible,.bed:focus-visible{outline:2px solid var(--green);outline-offset:2px}
+.live{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--deep);
+  background:rgba(46,158,107,.10);border:1px solid rgba(46,158,107,.28);
+  padding:7px 11px;border-radius:9px;font-weight:600;letter-spacing:.6px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--p4);animation:pulse 1.4s infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(46,158,107,.45)}50%{opacity:.5;box-shadow:0 0 0 6px rgba(46,158,107,0)}}
+.clock{font-size:12px;color:var(--ink2);min-width:112px;text-align:right}
+.clock b{color:var(--ink);font-weight:600}
+
+/* ---------- TABS ---------- */
+nav{border-bottom:1px solid var(--line);background:rgba(255,255,255,.7)}
+.tabs{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{
+  background:none;border:none;border-bottom:2px solid transparent;
+  color:var(--ink3);padding:12px 15px;font-size:12.5px;font-weight:600;
+  cursor:pointer;white-space:nowrap;font-family:inherit;letter-spacing:.2px;transition:.15s;
+  display:flex;align-items:center;gap:7px;
+}
+.tab:hover{color:var(--ink2)}
+.tab.on{color:var(--deep);border-bottom-color:var(--green);background:linear-gradient(180deg,transparent,rgba(46,158,107,.09))}
+.tab i{font-style:normal;font-size:10px;opacity:.6;font-family:'IBM Plex Mono'}
+
+/* ---------- ALERT TICKER ---------- */
+.ticker{display:flex;align-items:center;gap:10px;background:var(--panel2);border-bottom:1px solid var(--line);
+  padding:8px 0;overflow:hidden}
+.ticker .tag{flex-shrink:0;font-size:9.5px;font-weight:700;letter-spacing:1.4px;color:var(--p2);
+  border:1px solid rgba(255,159,67,.35);background:rgba(255,159,67,.08);padding:3px 8px;border-radius:5px}
+.tk-feed{flex:1;overflow:hidden;position:relative;height:18px}
+.tk-item{position:absolute;inset:0;display:flex;align-items:center;gap:8px;font-size:12px;color:var(--ink2);
+  animation:slideIn .5s ease}
+@keyframes slideIn{from{transform:translateY(14px);opacity:0}to{transform:translateY(0);opacity:1}}
+.tk-item b{color:var(--ink);font-weight:600}
+.tk-item .t{color:var(--ink3);font-size:11px}
+
+/* ---------- LAYOUT ---------- */
+main{padding-top:22px}
+.page{display:none;animation:fade .35s ease}
+.page.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.sec{display:flex;align-items:baseline;gap:10px;margin:26px 0 12px}
+.sec:first-child{margin-top:0}
+.sec h2{font-size:13px;font-weight:700;letter-spacing:.3px}
+.sec p{font-size:11.5px;color:var(--ink3)}
+.sec .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line2),transparent)}
+
+.grid{display:grid;gap:14px}
+.g4{grid-template-columns:repeat(4,1fr)}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g2{grid-template-columns:repeat(2,1fr)}
+.g23{grid-template-columns:2fr 1fr}
+.g32{grid-template-columns:1fr 2fr}
+.g6{grid-template-columns:repeat(6,1fr)}
+
+.card{background:var(--panel);border:1px solid var(--line);box-shadow:var(--shadow);
+  border-radius:var(--r);padding:16px;position:relative;overflow:hidden;transition:.2s}
+.card:hover{border-color:var(--line2);box-shadow:0 2px 4px rgba(22,38,43,.05),0 14px 30px -14px rgba(22,38,43,.16)}
+.card h3{font-size:12px;font-weight:600;color:var(--ink);margin-bottom:2px;display:flex;align-items:center;gap:7px}
+.card .sub{font-size:10.5px;color:var(--ink3);margin-bottom:12px}
+
+/* KPI */
+.kpi{cursor:default}
+.kpi::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--green);opacity:.85}
+.kpi.warn::before{background:var(--p2)}.kpi.bad::before{background:var(--p1)}.kpi.good::before{background:var(--p4)}
+.kpi .lab{font-size:10px;letter-spacing:1.1px;text-transform:uppercase;color:var(--ink3);font-weight:600}
+.kpi .val{font-size:28px;font-weight:700;letter-spacing:-1px;margin-top:6px;font-family:'IBM Plex Mono';
+  display:flex;align-items:baseline;gap:5px}
+.kpi .val small{font-size:13px;color:var(--ink2);font-weight:500;letter-spacing:0}
+.kpi .foot{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:8px}
+.chg{font-size:11px;font-weight:600;font-family:'IBM Plex Mono';display:flex;align-items:center;gap:3px}
+.up{color:var(--p4)}.down{color:var(--p1)}.flat{color:var(--ink3)}
+.spark{width:78px;height:26px;opacity:.85}
+.spark path{fill:none;stroke:var(--green);stroke-width:1.6}
+.spark .fill{fill:rgba(46,158,107,.12);stroke:none}
+.target{margin-top:10px;height:4px;border-radius:2px;background:#E9EFEA;overflow:hidden}
+.target i{display:block;height:100%;border-radius:2px;background:linear-gradient(90deg,var(--sage),var(--green));transition:width .8s cubic-bezier(.2,.8,.2,1)}
+
+/* CHART BOX */
+.cwrap{position:relative;height:230px}
+.cwrap.sm{height:180px}
+.cwrap.lg{height:300px}
+
+/* TABLE */
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);
+  font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);white-space:nowrap;cursor:pointer;user-select:none}
+th:hover{color:var(--deep)}
+th.num,td.num{text-align:right;font-family:'IBM Plex Mono'}
+td{padding:9px 10px;border-bottom:1px solid #EEF3EF;color:var(--ink2)}
+tbody tr{transition:.12s}
+tbody tr:hover{background:rgba(168,203,164,.14)}
+tbody tr:hover td{color:var(--ink)}
+td b{color:var(--ink);font-weight:600}
+.tscroll{max-height:340px;overflow:auto}
+.tscroll::-webkit-scrollbar{width:6px;height:6px}
+.tscroll::-webkit-scrollbar-thumb{background:#CBD9CE;border-radius:3px}
+
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:10px;font-weight:700;padding:3px 8px;
+  border-radius:20px;letter-spacing:.4px;white-space:nowrap}
+.pill.g{background:rgba(46,158,107,.12);color:#1F7A55;border:1px solid rgba(46,158,107,.32)}
+.pill.y{background:rgba(217,178,39,.14);color:#98790E;border:1px solid rgba(217,178,39,.35)}
+.pill.o{background:rgba(228,137,42,.12);color:#B3651A;border:1px solid rgba(228,137,42,.32)}
+.pill.r{background:rgba(220,63,82,.10);color:#BE2C40;border:1px solid rgba(220,63,82,.30)}
+.pill.b{background:rgba(27,127,184,.11);color:#166595;border:1px solid rgba(27,127,184,.30)}
+.pill.n{background:#F1F5F2;color:var(--ink3);border:1px solid var(--line)}
+
+/* bar in table */
+.mbar{height:5px;border-radius:3px;background:#E9EFEA;overflow:hidden;min-width:60px}
+.mbar i{display:block;height:100%;border-radius:3px}
+
+/* ---------- BED BOARD (signature) ---------- */
+.wardhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px}
+.wardhead .nm{font-size:12px;font-weight:700;display:flex;align-items:center;gap:8px}
+.wardhead .nm em{font-style:normal;font-size:10px;color:var(--ink3);font-family:'IBM Plex Mono';font-weight:500}
+.beds{display:grid;grid-template-columns:repeat(auto-fill,minmax(48px,1fr));gap:6px}
+.bed{
+  aspect-ratio:1;border-radius:8px;border:1px solid;cursor:pointer;position:relative;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1px;
+  font-family:'IBM Plex Mono';font-size:9.5px;font-weight:600;transition:.15s;background:none;
+}
+.bed:hover{transform:translateY(-2px) scale(1.07);z-index:5;box-shadow:0 6px 14px -6px rgba(22,38,43,.28)}
+.bed .ic{font-size:11px;line-height:1}
+.bed.occ{background:rgba(27,127,184,.10);border-color:rgba(27,127,184,.40);color:#166595}
+.bed.free{background:rgba(46,158,107,.10);border-color:rgba(46,158,107,.38);color:#1F7A55}
+.bed.clean{background:rgba(217,178,39,.13);border-color:rgba(217,178,39,.40);color:#8F7209}
+.bed.iso{background:rgba(124,95,203,.10);border-color:rgba(124,95,203,.38);color:#5B41A3}
+.bed.crit{background:rgba(220,63,82,.10);border-color:rgba(220,63,82,.45);color:#BE2C40;
+  animation:critblink 2s infinite}
+@keyframes critblink{0%,100%{box-shadow:0 0 0 0 rgba(220,63,82,0)}50%{box-shadow:0 0 0 3px rgba(220,63,82,.16)}}
+.bed.block{background:#F1F4F1;border-color:var(--line);color:var(--ink3)}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:10.5px;color:var(--ink3)}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{width:9px;height:9px;border-radius:3px;display:block}
+
+/* MODAL */
+.mask{position:fixed;inset:0;background:rgba(22,38,43,.42);backdrop-filter:blur(4px);z-index:100;
+  display:none;align-items:center;justify-content:center;padding:20px}
+.mask.on{display:flex;animation:fade .2s}
+.modal{background:var(--panel);border:1px solid var(--line2);
+  border-radius:16px;max-width:460px;width:100%;padding:20px;position:relative;
+  box-shadow:0 40px 80px -24px rgba(22,38,43,.35)}
+.modal .x{position:absolute;right:14px;top:12px;background:none;border:none;color:var(--ink3);
+  font-size:20px;cursor:pointer;line-height:1}
+.modal .x:hover{color:var(--ink)}
+.mrow{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #EEF3EF;font-size:12.5px}
+.mrow span{color:var(--ink3)}
+.mrow b{color:var(--ink);font-weight:600;font-family:'IBM Plex Mono'}
+
+/* misc */
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{background:#F5F8F5;border:1px solid var(--line);border-radius:7px;padding:5px 9px;
+  font-size:11px;color:var(--ink2);cursor:pointer;transition:.15s;font-family:inherit}
+.chip:hover,.chip.on{border-color:var(--green);color:var(--deep);background:rgba(46,158,107,.10)}
+.note{font-size:10.5px;color:var(--ink3);margin-top:10px;line-height:1.5}
+.flexb{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.stat{display:flex;flex-direction:column;gap:2px}
+.stat .n{font-family:'IBM Plex Mono';font-size:19px;font-weight:700}
+.stat .l{font-size:10px;color:var(--ink3);text-transform:uppercase;letter-spacing:.8px}
+.hr{height:1px;background:var(--line);margin:12px 0}
+.gaugewrap{display:flex;align-items:center;gap:14px}
+.gauge{width:96px;height:96px;flex-shrink:0}
+.credit{display:inline-flex;align-items:center;gap:8px;text-decoration:none;
+  background:#0B1017;border:1px solid #232C38;padding:5px 11px 5px 6px;border-radius:24px;transition:.18s}
+.credit:hover{border-color:#C9A961;transform:translateY(-1px);box-shadow:0 6px 16px -8px rgba(11,16,23,.55)}
+.credit svg{width:20px;height:20px;flex-shrink:0;border-radius:6px}
+.credit .txt{display:flex;flex-direction:column;line-height:1.1}
+.credit .txt b{font-size:10px;font-weight:700;letter-spacing:1.6px;color:#EDF2F8}
+.credit .txt b em{font-style:normal;color:#C9A961}
+.credit .txt span{font-size:7.5px;letter-spacing:1.3px;color:#7A8899;font-weight:600}
+.byline{display:inline-flex;align-items:center;gap:4px}
+.byline svg{width:13px;height:13px;border-radius:4px;vertical-align:-2px}
+.byline b{color:var(--gold);font-weight:700}
+footer{margin-top:34px;padding-top:16px;border-top:1px solid var(--line);color:var(--ink3);font-size:11px;
+  display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media(max-width:1200px){.g4,.g6{grid-template-columns:repeat(2,1fr)}.g3,.g23,.g32{grid-template-columns:1fr}}
+@media(max-width:760px){
+  .g4,.g2,.g6{grid-template-columns:1fr}
+  .ecg{display:none}.clock{display:none}
+  .hbar{flex-wrap:wrap;gap:10px}
+  .kpi .val{font-size:24px}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="dbMark" viewBox="0 0 200 200">
+    <rect width="200" height="200" rx="46" fill="#0B1017"/>
+    <path d="M42 44 h116 a14 14 0 0 1 14 14 v70 a14 14 0 0 1 -14 14 h-66 l-28 26 v-26 h-22 a14 14 0 0 1 -14 -14 v-70 a14 14 0 0 1 14 -14 z" fill="none" stroke="#C9A961" stroke-width="9" stroke-linejoin="round"/>
+    <g stroke-linecap="round" stroke-width="11">
+      <line x1="66" y1="120" x2="66" y2="104" stroke="#8C8577"/>
+      <line x1="89" y1="120" x2="89" y2="90" stroke="#1D9E75"/>
+      <line x1="112" y1="120" x2="112" y2="76" stroke="#C9A961"/>
+      <line x1="135" y1="120" x2="135" y2="62" stroke="#EBD79C"/>
+    </g>
+  </symbol>
+</svg>
+<header>
+  <div class="wrap hbar">
+    <div class="logo">
+      <div class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#E6F4F1" stroke-width="2.2" stroke-linecap="round">
+          <path d="M6 3v18M18 3v18M6 12h12"/>
+        </svg>
+      </div>
+      <div class="brand">
+        <h1>RS HERMINA</h1>
+        <span>Hospital Command Center<span class="byline"> · <svg><use href="#dbMark"/></svg><b>data berkata</b></span></span>
+      </div>
+    </div>
+
+    <div class="ecg">
+      <span class="lbl">Denyut Operasional</span>
+      <svg viewBox="0 0 600 46" preserveAspectRatio="none"><path id="ecgPath" d=""/></svg>
+      <span class="bpm mono" id="bpm">BOR 78.4% · 92 bpm</span>
+    </div>
+
+    <div class="hctl">
+      <select id="fBranch" aria-label="Filter cabang"></select>
+      <select id="fPeriod" aria-label="Filter periode">
+        <option value="today">Hari ini</option>
+        <option value="w" selected>7 hari</option>
+        <option value="m">Bulan berjalan</option>
+        <option value="y">YTD 2026</option>
+      </select>
+      <div class="live"><span class="dot"></span>LIVE</div>
+      <div class="clock"><b id="clk">--:--:--</b><br><span id="dte">—</span></div>
+    </div>
+  </div>
+
+  <nav><div class="wrap"><div class="tabs" id="tabs"></div></div></nav>
+
+  <div class="ticker">
+    <div class="wrap" style="display:flex;align-items:center;gap:12px;width:100%">
+      <span class="tag">ALERT FEED</span>
+      <div class="tk-feed" id="feed"></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ============ 1. RINGKASAN ============ -->
+<section class="page on" id="p-overview">
+  <div class="sec"><h2>Indikator Utama Rumah Sakit</h2><p id="ovScope">— seluruh jaringan · 7 hari</p><div class="rule"></div></div>
+  <div class="grid g4" id="kpiTop"></div>
+
+  <div class="grid g4" style="margin-top:14px" id="kpiSec"></div>
+
+  <div class="sec"><h2>Tren & Komposisi</h2><p>okupansi, pendapatan, dan bauran penjamin</p><div class="rule"></div></div>
+  <div class="grid g23">
+    <div class="card">
+      <h3>Tren BOR & pasien rawat inap — 30 hari</h3>
+      <div class="sub">garis putus-putus = target BOR 80%</div>
+      <div class="cwrap lg"><canvas id="cBor"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Bauran penjamin</h3>
+      <div class="sub">kontribusi pendapatan</div>
+      <div class="cwrap"><canvas id="cPayor"></canvas></div>
+      <div class="hr"></div>
+      <div class="flexb"><div class="stat"><span class="n" style="color:var(--deep)" id="bpjsShare">61%</span><span class="l">BPJS</span></div>
+      <div class="stat"><span class="n" style="color:var(--blue)" id="privShare">39%</span><span class="l">Non-BPJS</span></div></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Pendapatan vs target — 2026</h3>
+      <div class="sub">dalam miliar rupiah</div>
+      <div class="cwrap"><canvas id="cRev"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Volume pasien per lini layanan</h3>
+      <div class="sub">kunjungan periode berjalan</div>
+      <div class="cwrap"><canvas id="cLine"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Papan Perhatian</h2><p>hal yang butuh keputusan hari ini</p><div class="rule"></div></div>
+  <div class="grid g3" id="attention"></div>
+</section>
+
+<!-- ============ 2. BED BOARD ============ -->
+<section class="page" id="p-bed">
+  <div class="sec"><h2>Bed Board</h2><p>status tempat tidur diperbarui tiap 3 detik · klik bed untuk detail</p><div class="rule"></div></div>
+  <div class="grid g6" id="bedStats"></div>
+
+  <div class="card" style="margin-top:14px">
+    <div class="flexb" style="margin-bottom:12px">
+      <div class="chips" id="wardChips"></div>
+      <div class="legend">
+        <span><i style="background:#1B7FB8"></i>Terisi</span>
+        <span><i style="background:#2E9E6B"></i>Kosong</span>
+        <span><i style="background:#D9B227"></i>Pembersihan</span>
+        <span><i style="background:#7C5FCB"></i>Isolasi</span>
+        <span><i style="background:#DC3F52"></i>Kritis</span>
+        <span><i style="background:#C3CEC5"></i>Blokir</span>
+      </div>
+    </div>
+    <div id="wards"></div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Okupansi per kelas perawatan</h3><div class="sub">terisi vs kapasitas</div>
+      <div class="cwrap"><canvas id="cClass"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Antrean masuk & rencana pulang</h3><div class="sub">arus bed 24 jam ke depan</div>
+      <div class="tscroll"><table id="tFlow"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 3. IGD ============ -->
+<section class="page" id="p-igd">
+  <div class="sec"><h2>Instalasi Gawat Darurat</h2><p>antrean hidup · triase ESI 1–5</p><div class="rule"></div></div>
+  <div class="grid g6" id="igdStats"></div>
+
+  <div class="grid g32" style="margin-top:14px">
+    <div class="card">
+      <h3>Sebaran triase</h3><div class="sub">pasien aktif di IGD</div>
+      <div class="cwrap"><canvas id="cTriage"></canvas></div>
+      <div class="note">Ambang respons: P1 segera · P2 ≤10 mnt · P3 ≤30 mnt · P4 ≤60 mnt · P5 ≤120 mnt</div>
+    </div>
+    <div class="card">
+      <h3>Antrean IGD — live</h3>
+      <div class="sub" id="igdSub">—</div>
+      <div class="tscroll"><table id="tIgd"></table></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Kunjungan IGD per jam</h3><div class="sub">hari ini vs rata-rata 30 hari</div>
+      <div class="cwrap"><canvas id="cIgdHour"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Alur pasien IGD</h3><div class="sub">konversi menuju rawat inap</div>
+      <div id="funnel"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. LAYANAN ============ -->
+<section class="page" id="p-svc">
+  <div class="sec"><h2>Rawat Jalan</h2><p>poliklinik & jadwal dokter hari ini</p><div class="rule"></div></div>
+  <div class="grid g4" id="poliStats"></div>
+  <div class="grid g23" style="margin-top:14px">
+    <div class="card">
+      <h3>Poliklinik aktif</h3><div class="sub">antrean, waktu tunggu, dan utilisasi slot</div>
+      <div class="tscroll"><table id="tPoli"></table></div>
+    </div>
+    <div class="card">
+      <h3>Waktu tunggu rawat jalan</h3><div class="sub">menit · target ≤ 60</div>
+      <div class="cwrap"><canvas id="cWait"></canvas></div>
+    </div>
+  </div>
+
+  <div class="sec"><h2>Kamar Operasi</h2><p>utilisasi OK & jadwal tindakan</p><div class="rule"></div></div>
+  <div class="grid g4" id="okStats"></div>
+  <div class="grid g23" style="margin-top:14px">
+    <div class="card">
+      <h3>Jadwal OK hari ini</h3><div class="sub">8 kamar · shift 07.00–21.00</div>
+      <div class="tscroll"><table id="tOk"></table></div>
+    </div>
+    <div class="card">
+      <h3>Utilisasi kamar operasi</h3><div class="sub">jam terpakai vs tersedia</div>
+      <div class="cwrap"><canvas id="cOk"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. REVENUE CYCLE ============ -->
+<section class="page" id="p-rcm">
+  <div class="sec"><h2>Siklus Pendapatan & Klaim BPJS</h2><p>INA-CBG, umur piutang, dan dispute</p><div class="rule"></div></div>
+  <div class="grid g4" id="rcmStats"></div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Umur piutang klaim</h3><div class="sub">miliar rupiah per bucket</div>
+      <div class="cwrap"><canvas id="cAging"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Status klaim BPJS bulan berjalan</h3><div class="sub">jumlah berkas</div>
+      <div class="cwrap"><canvas id="cClaim"></canvas></div>
+    </div>
+  </div>
+
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Top INA-CBG berdasarkan nilai klaim</h3><div class="sub">selisih tarif = klaim − biaya riil</div>
+      <div class="tscroll"><table id="tCbg"></table></div>
+    </div>
+    <div class="card">
+      <h3>Klaim pending & dispute</h3><div class="sub">butuh tindak lanjut casemix</div>
+      <div class="tscroll"><table id="tDispute"></table></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. FARMASI ============ -->
+<section class="page" id="p-far">
+  <div class="sec"><h2>Farmasi & Logistik</h2><p>stok, kedaluwarsa, dan rasio biaya obat</p><div class="rule"></div></div>
+  <div class="grid g4" id="farStats"></div>
+  <div class="grid g23" style="margin-top:14px">
+    <div class="card">
+      <h3>Stok obat kritikal</h3><div class="sub">urut berdasarkan hari persediaan tersisa</div>
+      <div class="tscroll"><table id="tDrug"></table></div>
+    </div>
+    <div class="card">
+      <h3>Profil kedaluwarsa</h3><div class="sub">nilai persediaan per horizon</div>
+      <div class="cwrap"><canvas id="cExp"></canvas></div>
+      <div class="note">Item &lt; 90 hari wajib masuk daftar penarikan atau retur distributor minggu ini.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 7. SDM ============ -->
+<section class="page" id="p-sdm">
+  <div class="sec"><h2>SDM & Produktivitas Dokter</h2><p>ketersediaan tenaga & beban kerja</p><div class="rule"></div></div>
+  <div class="grid g4" id="sdmStats"></div>
+  <div class="grid g23" style="margin-top:14px">
+    <div class="card">
+      <h3>Produktivitas dokter spesialis</h3><div class="sub">pasien ditangani & pendapatan yang dihasilkan</div>
+      <div class="tscroll"><table id="tDoc"></table></div>
+    </div>
+    <div class="card">
+      <h3>Rasio perawat : pasien per unit</h3><div class="sub">standar ICU 1:2 · rawat inap 1:6</div>
+      <div class="cwrap lg"><canvas id="cNurse"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 8. MUTU ============ -->
+<section class="page" id="p-mutu">
+  <div class="sec"><h2>Mutu & Keselamatan Pasien</h2><p>INM Kemenkes, HAIs, dan insiden</p><div class="rule"></div></div>
+  <div class="grid g4" id="mutuStats"></div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Infeksi terkait pelayanan (HAIs)</h3><div class="sub">‰ per 1.000 hari alat · vs ambang batas</div>
+      <div class="cwrap lg"><canvas id="cHai"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Insiden keselamatan pasien</h3><div class="sub">laporan per bulan menurut derajat</div>
+      <div class="cwrap lg"><canvas id="cIkp"></canvas></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>Indikator Nasional Mutu</h3><div class="sub">capaian vs standar Kemenkes</div>
+    <table id="tInm"></table>
+  </div>
+</section>
+
+<!-- ============ 9. JARINGAN ============ -->
+<section class="page" id="p-net">
+  <div class="sec"><h2>Jaringan Rumah Sakit</h2><p>perbandingan antar cabang · klik kolom untuk urutkan</p><div class="rule"></div></div>
+  <div class="grid g4" id="netStats"></div>
+  <div class="card" style="margin-top:14px">
+    <h3>Papan peringkat cabang</h3><div class="sub">periode berjalan</div>
+    <div class="tscroll" style="max-height:460px"><table id="tNet"></table></div>
+  </div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Okupansi vs margin EBITDA</h3><div class="sub">ukuran gelembung = jumlah bed</div>
+      <div class="cwrap lg"><canvas id="cScatter"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Kontribusi pendapatan per cabang</h3><div class="sub">10 besar</div>
+      <div class="cwrap lg"><canvas id="cNetRev"></canvas></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 10. FINANSIAL ============ -->
+<section class="page" id="p-fin">
+  <div class="sec"><h2>Kinerja Keuangan</h2><p>struktur biaya, margin, dan arus kas</p><div class="rule"></div></div>
+  <div class="grid g4" id="finStats"></div>
+  <div class="grid g2" style="margin-top:14px">
+    <div class="card">
+      <h3>Pendapatan, EBITDA, dan margin</h3><div class="sub">miliar rupiah · margin dalam %</div>
+      <div class="cwrap lg"><canvas id="cFin"></canvas></div>
+    </div>
+    <div class="card">
+      <h3>Struktur biaya operasional</h3><div class="sub">% terhadap pendapatan</div>
+      <div class="cwrap lg"><canvas id="cCost"></canvas></div>
+    </div>
+  </div>
+  <div class="card" style="margin-top:14px">
+    <h3>Laba rugi ringkas</h3><div class="sub">periode berjalan vs periode sebelumnya</div>
+    <table id="tPnl"></table>
+  </div>
+</section>
+
+<footer>
+  <span>RS Hermina — Hospital Command Center · data simulasi untuk keperluan purwarupa, bukan data pasien nyata</span>
+  <span style="display:flex;align-items:center;gap:12px">
+    <a class="credit" href="https://databerkata.github.io" target="_blank" rel="noopener" title="Dibangun oleh Data Berkata">
+      <svg><use href="#dbMark"/></svg>
+      <span class="txt"><b>DATA <em>BERKATA</em></b><span>INTERACTIVE BUSINESS DASHBOARDS</span></span>
+    </a>
+    <span class="mono" id="lastSync">sinkron terakhir —</span>
+  </span>
+</footer>
+</main>
+
+<div class="mask" id="mask"><div class="modal" id="modal"></div></div>
+
+<script>
+/* ========== UTIL ========== */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const R=(a,b)=>a+Math.random()*(b-a);
+const RI=(a,b)=>Math.floor(R(a,b+1));
+const pick=a=>a[RI(0,a.length-1)];
+const n0=v=>Math.round(v).toLocaleString('id-ID');
+const r1=v=>Math.round(v*10)/10;
+const n1=v=>v.toLocaleString('id-ID',{minimumFractionDigits:1,maximumFractionDigits:1});
+const rp=v=>'Rp '+n0(v);
+const miliar=v=>'Rp '+n1(v)+' M';
+const C={aqua:'#2E9E6B',deep:'#1F7A55',sage:'#A8CBA4',blue:'#1B7FB8',mint:'#7FC3A3',wood:'#C9A87C',p1:'#DC3F52',p2:'#E4892A',p3:'#D9B227',p4:'#2E9E6B',p5:'#93A5A8',violet:'#7C5FCB',ink3:'#8FA5A8',line:'rgba(22,38,43,.07)',empty:'rgba(22,38,43,.06)'};
+
+/* ========== DATA MODEL ========== */
+const BRANCHES=[
+ {id:'jtn',n:'Hermina Jatinegara',city:'Jakarta Timur',beds:280,bor:84.2,alos:3.6,rev:52.4,ebit:24.1,type:'Utama'},
+ {id:'kmy',n:'Hermina Kemayoran',city:'Jakarta Pusat',beds:210,bor:81.5,alos:3.4,rev:41.8,ebit:22.6,type:'Utama'},
+ {id:'pdm',n:'Hermina Podomoro',city:'Jakarta Utara',beds:195,bor:77.8,alos:3.2,rev:36.2,ebit:20.4,type:'Utama'},
+ {id:'dpk',n:'Hermina Depok',city:'Depok',beds:230,bor:86.1,alos:3.8,rev:44.6,ebit:25.3,type:'Utama'},
+ {id:'bks',n:'Hermina Bekasi',city:'Bekasi',beds:205,bor:79.4,alos:3.5,rev:38.9,ebit:21.8,type:'Utama'},
+ {id:'bgr',n:'Hermina Bogor',city:'Bogor',beds:170,bor:74.6,alos:3.3,rev:29.7,ebit:18.2,type:'Madya'},
+ {id:'ctt',n:'Hermina Ciputat',city:'Tangsel',beds:150,bor:72.3,alos:3.1,rev:25.4,ebit:16.9,type:'Madya'},
+ {id:'tng',n:'Hermina Tangerang',city:'Tangerang',beds:185,bor:80.7,alos:3.4,rev:33.1,ebit:20.1,type:'Madya'},
+ {id:'gal',n:'Hermina Galaxy',city:'Bekasi',beds:160,bor:76.9,alos:3.2,rev:27.8,ebit:17.5,type:'Madya'},
+ {id:'dmg',n:'Hermina Daan Mogot',city:'Jakarta Barat',beds:140,bor:69.8,alos:3.0,rev:22.3,ebit:14.2,type:'Madya'},
+ {id:'smg',n:'Hermina Pandanaran',city:'Semarang',beds:175,bor:75.2,alos:3.3,rev:26.9,ebit:16.4,type:'Madya'},
+ {id:'sby',n:'Hermina Surabaya',city:'Surabaya',beds:190,bor:78.3,alos:3.5,rev:31.5,ebit:19.3,type:'Utama'},
+ {id:'slo',n:'Hermina Solo',city:'Surakarta',beds:130,bor:71.4,alos:3.1,rev:19.8,ebit:13.6,type:'Pratama'},
+ {id:'plb',n:'Hermina Palembang',city:'Palembang',beds:145,bor:73.9,alos:3.2,rev:21.6,ebit:15.1,type:'Pratama'},
+ {id:'mks',n:'Hermina Makassar',city:'Makassar',beds:155,bor:70.5,alos:3.4,rev:23.4,ebit:14.8,type:'Pratama'},
+ {id:'mdn',n:'Hermina Medan',city:'Medan',beds:165,bor:72.8,alos:3.3,rev:24.7,ebit:15.6,type:'Pratama'},
+];
+const PERIOD={today:{k:1/30,l:'hari ini'},w:{k:7/30,l:'7 hari'},m:{k:1,l:'bulan berjalan'},y:{k:6.4,l:'YTD 2026'}};
+const state={branch:'ALL',period:'w',ward:'ALL',netSort:{k:'rev',d:-1},charts:{}};
+
+const WARDS=[
+ {id:'icu',n:'ICU / HCU',cap:18,cls:'Intensif'},
+ {id:'nicu',n:'NICU / PICU',cap:16,cls:'Intensif'},
+ {id:'vip',n:'VIP & Suite',cap:20,cls:'VIP'},
+ {id:'k1',n:'Kelas 1',cap:34,cls:'Kelas 1'},
+ {id:'k2',n:'Kelas 2',cap:40,cls:'Kelas 2'},
+ {id:'k3',n:'Kelas 3',cap:56,cls:'Kelas 3'},
+ {id:'obs',n:'Obstetri & Perinatologi',cap:30,cls:'Kebidanan'},
+ {id:'iso',n:'Isolasi Bertekanan',cap:12,cls:'Isolasi'},
+];
+const DX=['Demam berdarah','Pneumonia','Sectio caesarea','Gastroenteritis akut','Stroke iskemik','Apendisitis akut','CHF dekompensasi','Diabetes + ulkus','Bronkopneumonia anak','Preeklampsia berat','Fraktur femur','Sepsis','Anemia gravis','Hipertensi krisis','Batu ureter'];
+const FIRST=['Siti','Budi','Rina','Agus','Dewi','Hendra','Lestari','Yusuf','Maya','Rizky','Nurul','Bambang','Citra','Doni','Eka','Fitri','Galih','Hana'];
+const LAST=['Wijaya','Santoso','Pratama','Rahayu','Kusuma','Halim','Nugroho','Saputra','Anggraini','Permana'];
+const nm=()=>pick(FIRST)+' '+pick(LAST);
+const initials=s=>s.split(' ').map(x=>x[0]).join('');
+const PAYORS=['BPJS','Asuransi','Perusahaan','Pribadi'];
+const payor=()=>{const r=Math.random();return r<.6?'BPJS':r<.8?'Asuransi':r<.9?'Perusahaan':'Pribadi'};
+
+let beds=[];
+function buildBeds(){
+  beds=[];
+  WARDS.forEach(w=>{
+    for(let i=1;i<=w.cap;i++){
+      const r=Math.random();
+      let st = r<.74?'occ' : r<.86?'free' : r<.92?'clean' : r<.96?'iso' : r<.985?'crit':'block';
+      if(w.id==='iso'&&st==='occ')st='iso';
+      if(w.id==='icu'&&Math.random()<.25&&st==='occ')st='crit';
+      const filled=['occ','iso','crit'].includes(st);
+      beds.push({
+        id:w.id+'-'+String(i).padStart(2,'0'),ward:w.id,wn:w.n,no:i,st,
+        pt:filled?nm():null, age:filled?RI(1,84):null, dx:filled?pick(DX):null,
+        payor:filled?payor():null, los:filled?RI(1,12):null, dpjp:filled?'dr. '+nm()+', Sp.'+pick(['PD','A','OG','B','JP','S','P','An']):null,
+        plan:filled?pick(['Lanjut rawat','Rencana pulang besok','Menunggu hasil lab','Persiapan operasi','Rujuk ICU']):null
+      });
+    }
+  });
+}
+buildBeds();
+
+let igdQ=[];
+function newPt(){
+  const t=Math.random(); const tri = t<.05?1 : t<.2?2 : t<.5?3 : t<.8?4 : 5;
+  return {id:'IGD'+RI(1000,9999),nm:nm(),age:RI(1,88),tri,dx:pick(DX),payor:payor(),
+    wait:tri<=2?RI(0,6):RI(3,55),status:pick(['Triase','Pemeriksaan','Observasi','Menunggu bed','Tindakan'])};
+}
+for(let i=0;i<14;i++)igdQ.push(newPt());
+
+const POLI=[['Anak','dr. Ratna, Sp.A',5],['Kebidanan & Kandungan','dr. Wibowo, Sp.OG',4],['Penyakit Dalam','dr. Anton, Sp.PD',4],['Bedah Umum','dr. Karim, Sp.B',3],['Jantung','dr. Prima, Sp.JP',2],['Saraf','dr. Lia, Sp.S',2],['Mata','dr. Gita, Sp.M',2],['THT','dr. Bimo, Sp.THT',2],['Kulit & Kelamin','dr. Nadia, Sp.KK',2],['Ortopedi','dr. Reza, Sp.OT',2],['Paru','dr. Farid, Sp.P',2],['Gigi & Mulut','drg. Sari',3]];
+const SPES=['Sp.OG','Sp.A','Sp.PD','Sp.B','Sp.JP','Sp.S','Sp.An','Sp.M','Sp.OT','Sp.P','Sp.U','Sp.THT'];
+const DRUGS=[['Ceftriaxone inj 1g','Antibiotik'],['Paracetamol inf 100ml','Analgetik'],['Omeprazole inj 40mg','Gastro'],['Ondansetron inj 4mg','Antiemetik'],['NaCl 0,9% 500ml','Cairan'],['Ringer Laktat 500ml','Cairan'],['Insulin glargine','Endokrin'],['Furosemide inj 20mg','Kardio'],['Meropenem inj 1g','Antibiotik'],['Heparin inj 5000IU','Kardio'],['Propofol 200mg','Anestesi'],['Albumin 20% 100ml','Cairan'],['Salbutamol nebu','Respirasi'],['Metformin 500mg','Endokrin'],['Amlodipine 10mg','Kardio']];
+const CBG=[['O-6-10-I','Persalinan sectio caesarea ringan',9.8],['N-4-12-II','Prosedur sistem saraf sedang',7.2],['J-4-16-I','Infeksi saluran napas ringan',6.4],['K-4-17-II','Gastroenteritis sedang',5.8],['I-4-12-I','Gagal jantung ringan',5.1],['A-4-14-II','Sepsis sedang',4.6],['M-1-40-I','Prosedur muskuloskeletal',4.2],['P-8-17-I','Neonatal BBLR',3.9],['E-4-10-II','Diabetes dengan komplikasi',3.3],['U-4-13-I','Infeksi saluran kemih',2.7]];
+const INM=[['Kepatuhan kebersihan tangan',92.4,85,'%'],['Kepatuhan penggunaan APD',97.1,100,'%'],['Kepatuhan identifikasi pasien',99.2,100,'%'],['Waktu tanggap operasi seksio darurat',94.6,80,'%'],['Waktu tunggu rawat jalan ≤60 mnt',86.3,80,'%'],['Penundaan operasi elektif',3.8,5,'% (maks)'],['Kepatuhan waktu visit DPJP',88.7,80,'%'],['Pelaporan hasil kritis laboratorium',96.5,100,'%'],['Kepatuhan penggunaan formularium',94.9,80,'%'],['Kepatuhan alur klinis',91.2,80,'%'],['Kepuasan pasien',87.4,76,'%'],['Kejadian pasien jatuh',0.9,0,'per 1.000 hari rawat']];
+
+/* ========== DERIVED ========== */
+function activeBranches(){return state.branch==='ALL'?BRANCHES:BRANCHES.filter(b=>b.id===state.branch)}
+function agg(){
+  const bs=activeBranches(), k=PERIOD[state.period].k;
+  const beds=bs.reduce((s,b)=>s+b.beds,0);
+  const bor=bs.reduce((s,b)=>s+b.bor*b.beds,0)/beds;
+  const alos=bs.reduce((s,b)=>s+b.alos*b.beds,0)/beds;
+  const rev=bs.reduce((s,b)=>s+b.rev,0)*k;
+  const ebitM=bs.reduce((s,b)=>s+b.ebit*b.rev,0)/bs.reduce((s,b)=>s+b.rev,0);
+  const inpat=Math.round(beds*bor/100);
+  const toi=alos*(100-bor)/bor;
+  const admits=Math.round(beds*bor/100/alos*30*k);
+  return{beds,bor,alos,rev,ebitM,inpat,toi,
+    admits,
+    outpatient:Math.round(beds*9.2*30*k),
+    igdVisit:Math.round(beds*1.35*30*k),
+    surgery:Math.round(beds*0.42*30*k),
+    births:Math.round(beds*0.31*30*k),
+    bto:Math.round((bor/100*30*k)/alos*10)/10,
+    nOfBranch:bs.length,k};
+}
+
+/* ========== HEADER: clock, ECG, feed ========== */
+function tickClock(){
+  const d=new Date();
+  $('#clk').textContent=d.toLocaleTimeString('id-ID',{hour12:false});
+  $('#dte').textContent=d.toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short',year:'numeric'})+' WIB';
+}
+setInterval(tickClock,1000);tickClock();
+
+let ecgT=0;
+function drawEcg(){
+  const a=agg(); const amp=Math.min(1.35,a.bor/70);
+  let d='',W=600,H=46;
+  for(let x=0;x<=W;x+=2){
+    const p=((x+ecgT)%120)/120;
+    let y=H/2;
+    if(p>.30&&p<.34)y=H/2-2;
+    else if(p>.36&&p<.39)y=H/2+3;
+    else if(p>.39&&p<.43)y=H/2-16*amp;
+    else if(p>.43&&p<.47)y=H/2+9*amp;
+    else if(p>.50&&p<.58)y=H/2-4*amp;
+    else y=H/2+Math.sin((x+ecgT)/9)*0.7;
+    d+=(x===0?'M':'L')+x+' '+y.toFixed(1)+' ';
+  }
+  $('#ecgPath').setAttribute('d',d);
+  ecgT+=2.4;
+  $('#bpm').textContent='BOR '+n1(a.bor)+'% · '+Math.round(72+a.bor/4)+' bpm';
+}
+setInterval(drawEcg,40);
+
+const ALERTS=[
+ ()=>['bad','ICU Jatinegara terisi 17/18 bed — sisa 1 slot',`${RI(1,9)} mnt lalu`],
+ ()=>['warn','Antrean IGD melewati 20 pasien, aktifkan tim jaga tambahan',`${RI(1,9)} mnt lalu`],
+ ()=>['warn',`Stok ${pick(DRUGS)[0]} tersisa ${RI(2,6)} hari`,`${RI(1,20)} mnt lalu`],
+ ()=>['good',`Klaim BPJS ${n0(RI(180,420))} berkas terkirim ke verifikator`,`${RI(1,30)} mnt lalu`],
+ ()=>['bad',`Kode biru di ${pick(['Kelas 2 lantai 4','VIP 07','IGD bay 3'])} — tim resusitasi merespons`,'baru saja'],
+ ()=>['warn',`OK ${RI(1,8)} terlambat mulai ${RI(15,45)} menit`,`${RI(2,25)} mnt lalu`],
+ ()=>['good',`BOR jaringan naik ke ${n1(R(76,84))}%`,`${RI(5,40)} mnt lalu`],
+ ()=>['warn',`Klaim dispute bertambah ${RI(3,12)} berkas — koding ulang diperlukan`,`${RI(10,50)} mnt lalu`],
+ ()=>['bad',`Piutang BPJS > 90 hari menembus Rp ${n1(R(8,16))} M`,`${RI(20,58)} mnt lalu`],
+ ()=>['good',`${RI(3,9)} pasien pulang dari Kelas 3 — bed siap dibersihkan`,'baru saja'],
+];
+function pushAlert(){
+  const [lv,txt,t]=pick(ALERTS)();
+  const cls=lv==='bad'?'r':lv==='warn'?'o':'g';
+  const lab=lv==='bad'?'KRITIS':lv==='warn'?'PERHATIAN':'INFO';
+  $('#feed').innerHTML=`<div class="tk-item"><span class="pill ${cls}">${lab}</span><b>${txt}</b><span class="t">· ${t}</span></div>`;
+}
+pushAlert();setInterval(pushAlert,4200);
+
+/* ========== TABS ========== */
+const TABS=[['overview','Ringkasan','01'],['bed','Bed Board','02'],['igd','IGD','03'],['svc','Layanan','04'],['rcm','Revenue Cycle','05'],['far','Farmasi','06'],['sdm','SDM','07'],['mutu','Mutu','08'],['net','Jaringan','09'],['fin','Finansial','10']];
+$('#tabs').innerHTML=TABS.map((t,i)=>`<button class="tab ${i===0?'on':''}" data-t="${t[0]}"><i>${t[2]}</i>${t[1]}</button>`).join('');
+$$('.tab').forEach(b=>b.onclick=()=>{
+  $$('.tab').forEach(x=>x.classList.remove('on'));b.classList.add('on');
+  $$('.page').forEach(p=>p.classList.remove('on'));
+  $('#p-'+b.dataset.t).classList.add('on');
+  Object.values(state.charts).forEach(c=>c.resize());
+});
+
+/* ========== FILTERS ========== */
+$('#fBranch').innerHTML='<option value="ALL">Seluruh jaringan (16 RS)</option>'+BRANCHES.map(b=>`<option value="${b.id}">${b.n}</option>`).join('');
+$('#fBranch').onchange=e=>{state.branch=e.target.value;buildBeds();renderAll()};
+$('#fPeriod').onchange=e=>{state.period=e.target.value;renderAll()};
+
+/* ========== SPARKLINE ========== */
+function spark(seed,up=true){
+  const pts=[];let v=50;
+  for(let i=0;i<16;i++){v+=R(-8,up?10:6);v=Math.max(10,Math.min(90,v));pts.push(v)}
+  const W=78,H=26;
+  const d=pts.map((p,i)=>`${i?'L':'M'}${(i/15*W).toFixed(1)} ${(H-(p/100*H)).toFixed(1)}`).join(' ');
+  const f=`${d} L${W} ${H} L0 ${H} Z`;
+  return `<svg class="spark" viewBox="0 0 ${W} ${H}"><path class="fill" d="${f}"/><path d="${d}"/></svg>`;
+}
+function kpi(o){
+  const cls=o.tone||'';
+  const cd=o.chg>0?'up':o.chg<0?'down':'flat';
+  const ar=o.chg>0?'▲':o.chg<0?'▼':'—';
+  return `<div class="card kpi ${cls}">
+    <div class="lab">${o.lab}</div>
+    <div class="val">${o.val}${o.unit?`<small>${o.unit}</small>`:''}</div>
+    <div class="foot">
+      <span class="chg ${cd}">${ar} ${n1(Math.abs(o.chg))}${o.chgUnit||'%'} <span style="color:var(--ink3);font-weight:400">${o.vs||'vs periode lalu'}</span></span>
+      ${o.spark!==false?spark(0,o.chg>=0):''}
+    </div>
+    ${o.tgt!=null?`<div class="target"><i style="width:${Math.min(100,o.tgt)}%"></i></div><div class="note" style="margin-top:5px">${o.tgtLab}</div>`:''}
+  </div>`;
+}
+
+/* ========== CHART DEFAULTS ========== */
+Chart.defaults.color='#5B7075';
+Chart.defaults.font.family="'IBM Plex Sans',sans-serif";
+Chart.defaults.font.size=11;
+Chart.defaults.plugins.legend.labels.boxWidth=10;
+Chart.defaults.plugins.legend.labels.boxHeight=10;
+Chart.defaults.plugins.legend.labels.usePointStyle=true;
+Chart.defaults.plugins.tooltip.backgroundColor='#FFFFFF';
+Chart.defaults.plugins.tooltip.borderColor='#C7DCCD';
+Chart.defaults.plugins.tooltip.borderWidth=1;
+Chart.defaults.plugins.tooltip.titleColor='#16262B';
+Chart.defaults.plugins.tooltip.bodyColor='#5B7075';
+Chart.defaults.plugins.tooltip.padding=10;
+Chart.defaults.plugins.tooltip.cornerRadius=8;
+Chart.defaults.plugins.tooltip.displayColors=true;
+Chart.defaults.plugins.tooltip.boxPadding=4;
+Chart.defaults.maintainAspectRatio=false;
+const GRID={grid:{color:C.line,drawTicks:false},border:{display:false}};
+function mk(id,cfg){
+  if(state.charts[id]){state.charts[id].destroy()}
+  state.charts[id]=new Chart($('#'+id),cfg);
+}
+
+/* ========== 1. OVERVIEW ========== */
+function renderOverview(){
+  const a=agg(),P=PERIOD[state.period];
+  $('#ovScope').textContent='— '+(state.branch==='ALL'?'seluruh jaringan':BRANCHES.find(b=>b.id===state.branch).n)+' · '+P.l;
+  $('#kpiTop').innerHTML=[
+    kpi({lab:'BOR — okupansi bed',val:n1(a.bor),unit:'%',chg:r1(R(-1.5,3.2)),tone:a.bor>85?'warn':a.bor>70?'good':'bad',tgt:a.bor/80*100,tgtLab:'target 80% · '+(a.bor>=80?'tercapai':'kurang '+n1(80-a.bor)+' poin')}),
+    kpi({lab:'Pasien rawat inap',val:n0(a.inpat),unit:'pasien',chg:r1(R(-2,6)),tone:'good'}),
+    kpi({lab:'Pendapatan',val:n1(a.rev),unit:'miliar',chg:r1(R(-3,9)),tone:'good',tgt:R(82,104),tgtLab:'realisasi terhadap target periode'}),
+    kpi({lab:'Margin EBITDA',val:n1(a.ebitM),unit:'%',chg:r1(R(-1.2,2.4)),tone:a.ebitM>20?'good':'warn'}),
+  ].join('');
+  $('#kpiSec').innerHTML=[
+    kpi({lab:'ALOS',val:n1(a.alos),unit:'hari',chg:r1(R(-4,2)),tone:a.alos<4?'good':'warn'}),
+    kpi({lab:'TOI',val:n1(a.toi),unit:'hari',chg:r1(R(-6,4)),tone:a.toi<3?'good':'warn'}),
+    kpi({lab:'Kunjungan rawat jalan',val:n0(a.outpatient),unit:'kunj.',chg:r1(R(-1,7))}),
+    kpi({lab:'Kunjungan IGD',val:n0(a.igdVisit),unit:'kunj.',chg:r1(R(-2,11)),tone:'warn'}),
+  ].join('');
+
+  // BOR trend
+  const lbl=[...Array(30)].map((_,i)=>{const d=new Date();d.setDate(d.getDate()-(29-i));return d.getDate()+'/'+(d.getMonth()+1)});
+  let v=a.bor-4;const bor=lbl.map((_,i)=>{v+=R(-2.4,2.7);v=Math.max(62,Math.min(94,v));return +v.toFixed(1)});
+  const pts=bor.map(b=>Math.round(a.beds*b/100));
+  mk('cBor',{data:{labels:lbl,datasets:[
+    {type:'bar',label:'Pasien rawat inap',data:pts,backgroundColor:'rgba(27,127,184,.30)',borderRadius:3,yAxisID:'y1',order:2},
+    {type:'line',label:'BOR (%)',data:bor,borderColor:C.aqua,backgroundColor:'rgba(46,158,107,.14)',fill:true,tension:.35,pointRadius:0,pointHoverRadius:4,borderWidth:2,yAxisID:'y',order:1},
+    {type:'line',label:'Target 80%',data:lbl.map(()=>80),borderColor:'rgba(217,178,39,.85)',borderDash:[5,4],pointRadius:0,borderWidth:1.4,yAxisID:'y',order:0},
+  ]},options:{interaction:{mode:'index',intersect:false},scales:{
+    x:{...GRID,ticks:{maxTicksLimit:10}},
+    y:{...GRID,position:'left',min:55,max:100,ticks:{callback:v=>v+'%'}},
+    y1:{grid:{display:false},border:{display:false},position:'right',ticks:{color:C.ink3}}}}});
+
+  // payor
+  const pv=[a.rev*.606,a.rev*.203,a.rev*.111,a.rev*.08];
+  $('#bpjsShare').textContent='60,6%';$('#privShare').textContent='39,4%';
+  mk('cPayor',{type:'doughnut',data:{labels:PAYORS,datasets:[{data:pv.map(x=>+x.toFixed(1)),
+    backgroundColor:[C.blue,C.aqua,C.violet,C.p3],borderColor:'#FFFFFF',borderWidth:2,hoverOffset:8}]},
+    options:{cutout:'64%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+miliar(c.raw)}}}}});
+
+  // revenue vs target
+  const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul','Ags','Sep','Okt','Nov','Des'];
+  const base=activeBranches().reduce((s,b)=>s+b.rev,0);
+  const act=mo.map((_,i)=>i<=6?+(base*R(.92,1.12)).toFixed(1):null);
+  const tgt=mo.map((_,i)=>+(base*(1+i*.012)).toFixed(1));
+  mk('cRev',{data:{labels:mo,datasets:[
+    {type:'bar',label:'Realisasi',data:act,backgroundColor:C.blue,borderRadius:4},
+    {type:'line',label:'Target',data:tgt,borderColor:C.p3,borderDash:[5,4],pointRadius:0,borderWidth:1.6,tension:.2}
+  ]},options:{scales:{x:GRID,y:{...GRID,ticks:{callback:v=>v+' M'}}},plugins:{tooltip:{callbacks:{label:c=>c.dataset.label+': '+miliar(c.raw||0)}}}}});
+
+  // service line
+  mk('cLine',{type:'bar',data:{labels:['Rawat jalan','IGD','Rawat inap','Bedah','Persalinan','Medical check-up','Hemodialisa','Radiologi'],
+    datasets:[{data:[a.outpatient,a.igdVisit,a.admits,a.surgery,a.births,Math.round(a.beds*.9*30*a.k/10),Math.round(a.beds*.6*30*a.k/10),Math.round(a.beds*2.1*30*a.k/10)],
+    backgroundColor:[C.aqua,C.p2,C.blue,C.violet,C.sage,C.wood,'#5FA8C9','#7FC3A3'],borderRadius:4}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:{...GRID,ticks:{callback:v=>n0(v)}},y:{grid:{display:false},border:{display:false}}}}});
+
+  // attention
+  const critBeds=beds.filter(b=>b.st==='crit').length;
+  const freeIcu=beds.filter(b=>b.ward==='icu'&&b.st==='free').length;
+  $('#attention').innerHTML=`
+  <div class="card"><h3><span class="pill r">KRITIS</span> Kapasitas intensif menipis</h3>
+    <div class="sub">ICU/HCU & NICU</div>
+    <div class="flexb"><div class="stat"><span class="n" style="color:var(--p1)">${freeIcu}</span><span class="l">bed ICU kosong</span></div>
+    <div class="stat"><span class="n" style="color:var(--p2)">${critBeds}</span><span class="l">pasien kritis</span></div>
+    <div class="stat"><span class="n">${RI(2,7)}</span><span class="l">antre masuk ICU</span></div></div>
+    <div class="note">Aktifkan protokol rujuk antar-cabang bila bed kosong &lt; 2. Cabang terdekat dengan kapasitas: Hermina Depok (4 bed).</div></div>
+  <div class="card"><h3><span class="pill o">PERHATIAN</span> Piutang klaim menua</h3>
+    <div class="sub">BPJS Kesehatan</div>
+    <div class="flexb"><div class="stat"><span class="n" style="color:var(--p2)">${n1(R(52,64))}</span><span class="l">hari AR</span></div>
+    <div class="stat"><span class="n">Rp ${n1(R(9,15))} M</span><span class="l">&gt; 90 hari</span></div>
+    <div class="stat"><span class="n">${RI(60,140)}</span><span class="l">berkas dispute</span></div></div>
+    <div class="note">Dispute terbanyak pada koding sepsis dan neonatal. Tugaskan tim casemix untuk koding ulang sebelum tanggal 20.</div></div>
+  <div class="card"><h3><span class="pill g">PELUANG</span> Kapasitas OK belum optimal</h3>
+    <div class="sub">Kamar operasi elektif</div>
+    <div class="flexb"><div class="stat"><span class="n" style="color:var(--p4)">${n1(R(64,73))}%</span><span class="l">utilisasi OK</span></div>
+    <div class="stat"><span class="n">${RI(9,18)}</span><span class="l">slot kosong/mgg</span></div>
+    <div class="stat"><span class="n">Rp ${n1(R(1.4,3.1))} M</span><span class="l">potensi/bln</span></div></div>
+    <div class="note">Slot sore (16.00–20.00) paling banyak menganggur. Buka jadwal elektif tambahan untuk bedah dan ortopedi.</div></div>`;
+}
+
+/* ========== 2. BED BOARD ========== */
+function bedIcon(st){return{occ:'●',free:'○',clean:'◐',iso:'◍',crit:'✚',block:'✕'}[st]}
+function renderBed(light){
+  const cnt=s=>beds.filter(b=>b.st===s).length;
+  const filled=beds.filter(b=>['occ','iso','crit'].includes(b.st)).length;
+  $('#bedStats').innerHTML=[
+    ['Total bed',beds.length,'','var(--ink)'],['Terisi',filled,n1(filled/beds.length*100)+'%','var(--blue)'],
+    ['Kosong',cnt('free'),'siap pakai','var(--p4)'],['Pembersihan',cnt('clean'),'~45 mnt','var(--p3)'],
+    ['Isolasi',cnt('iso'),'tekanan negatif','#BCA6F0'],['Kritis',cnt('crit'),'pantauan ketat','var(--p1)'],
+  ].map(([l,v,s,c])=>`<div class="card"><div class="lab" style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-weight:600">${l}</div>
+    <div class="mono" style="font-size:26px;font-weight:700;color:${c};margin-top:4px">${v}</div>
+    <div class="note" style="margin-top:2px">${s}</div></div>`).join('');
+
+  $('#wardChips').innerHTML=`<button class="chip ${state.ward==='ALL'?'on':''}" data-w="ALL">Semua unit</button>`+
+    WARDS.map(w=>`<button class="chip ${state.ward===w.id?'on':''}" data-w="${w.id}">${w.n}</button>`).join('');
+  $$('#wardChips .chip').forEach(c=>c.onclick=()=>{state.ward=c.dataset.w;renderBed()});
+
+  const show=state.ward==='ALL'?WARDS:WARDS.filter(w=>w.id===state.ward);
+  $('#wards').innerHTML=show.map(w=>{
+    const bd=beds.filter(b=>b.ward===w.id);
+    const f=bd.filter(b=>['occ','iso','crit'].includes(b.st)).length;
+    const pct=f/bd.length*100;
+    const tone=pct>90?'r':pct>75?'o':'g';
+    return `<div style="margin-bottom:18px">
+      <div class="wardhead">
+        <div class="nm">${w.n} <em>${w.cls}</em> <span class="pill ${tone}">${f}/${bd.length} · ${n1(pct)}%</span></div>
+        <div class="mbar" style="width:160px"><i style="width:${pct}%;background:${pct>90?'var(--p1)':pct>75?'var(--p2)':'var(--p4)'}"></i></div>
+      </div>
+      <div class="beds">${bd.map(b=>`<button class="bed ${b.st}" data-b="${b.id}" title="${b.id}${b.pt?' — '+b.pt:''}">
+        <span class="ic">${bedIcon(b.st)}</span>${b.no}</button>`).join('')}</div>
+    </div>`;
+  }).join('');
+  $$('.bed').forEach(el=>el.onclick=()=>openBed(el.dataset.b));
+
+  // class chart
+  const cls=[...new Set(WARDS.map(w=>w.cls))];
+  const capd=cls.map(c=>beds.filter(b=>WARDS.find(w=>w.id===b.ward).cls===c).length);
+  const fild=cls.map(c=>beds.filter(b=>WARDS.find(w=>w.id===b.ward).cls===c&&['occ','iso','crit'].includes(b.st)).length);
+  const free=capd.map((c,i)=>c-fild[i]);
+  if(light&&state.charts.cClass){
+    const ch=state.charts.cClass;ch.data.datasets[0].data=fild;ch.data.datasets[1].data=free;ch.update('none');
+  }else{
+    mk('cClass',{type:'bar',data:{labels:cls,datasets:[
+      {label:'Terisi',data:fild,backgroundColor:C.blue,borderRadius:4},
+      {label:'Sisa kapasitas',data:free,backgroundColor:C.empty,borderRadius:4}]},
+      options:{scales:{x:{...GRID,stacked:true},y:{...GRID,stacked:true}}}});
+  }
+
+  // flow table
+  if(light)return;
+  const rows=[...Array(10)].map(()=>{
+    const dir=Math.random()<.5?'Masuk':'Pulang';
+    return {dir,pt:nm(),from:dir==='Masuk'?pick(['IGD','Poliklinik','Rujukan RS lain','OK']):pick(WARDS).n,
+      ward:pick(WARDS).n,eta:RI(1,20)+' jam lagi',pay:payor()};
+  }).sort((a,b)=>parseInt(a.eta)-parseInt(b.eta));
+  $('#tFlow').innerHTML=`<thead><tr><th>Arah</th><th>Pasien</th><th>Asal / Unit</th><th>Tujuan</th><th>Penjamin</th><th class="num">Perkiraan</th></tr></thead><tbody>`+
+    rows.map(r=>`<tr><td><span class="pill ${r.dir==='Masuk'?'b':'g'}">${r.dir}</span></td><td><b>${r.pt}</b></td>
+    <td>${r.from}</td><td>${r.ward}</td><td>${r.pay}</td><td class="num">${r.eta}</td></tr>`).join('')+'</tbody>';
+}
+function openBed(id){
+  const b=beds.find(x=>x.id===id);
+  const stl={occ:['Terisi','b'],free:['Kosong — siap pakai','g'],clean:['Sedang dibersihkan','y'],iso:['Isolasi','n'],crit:['Kritis','r'],block:['Diblokir / perbaikan','n']}[b.st];
+  $('#modal').innerHTML=`<button class="x" aria-label="Tutup">×</button>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:4px">
+      <span class="mono" style="font-size:20px;font-weight:700">${b.id.toUpperCase()}</span>
+      <span class="pill ${stl[1]}">${stl[0]}</span></div>
+    <div class="sub" style="color:var(--ink3);font-size:11px;margin-bottom:14px">${b.wn} · bed ${b.no}</div>
+    ${b.pt?`
+      <div class="mrow"><span>Pasien</span><b>${b.pt}</b></div>
+      <div class="mrow"><span>Usia</span><b>${b.age} th</b></div>
+      <div class="mrow"><span>Diagnosis kerja</span><b>${b.dx}</b></div>
+      <div class="mrow"><span>DPJP</span><b style="font-family:'IBM Plex Sans'">${b.dpjp}</b></div>
+      <div class="mrow"><span>Penjamin</span><b>${b.payor}</b></div>
+      <div class="mrow"><span>Lama dirawat</span><b>${b.los} hari</b></div>
+      <div class="mrow" style="border:none"><span>Rencana</span><b style="font-family:'IBM Plex Sans'">${b.plan}</b></div>
+      <div class="note">Ringkasan ini dibuat dari data simulasi. Pada penerapan nyata, kartu ini terhubung ke SIMRS dan rekam medis elektronik dengan kendali akses berbasis peran.</div>`
+    :`<div class="note" style="font-size:12px;color:var(--ink2)">Tidak ada pasien pada bed ini.${b.st==='clean'?' Perkiraan siap pakai dalam 45 menit.':b.st==='block'?' Bed diblokir untuk perbaikan sarana.':' Bed dapat langsung dialokasikan dari antrean IGD.'}</div>`}`;
+  $('#mask').classList.add('on');
+  $('#modal .x').onclick=()=>$('#mask').classList.remove('on');
+}
+$('#mask').onclick=e=>{if(e.target.id==='mask')$('#mask').classList.remove('on')};
+document.addEventListener('keydown',e=>{if(e.key==='Escape')$('#mask').classList.remove('on')});
+
+/* ========== 3. IGD ========== */
+function renderIgd(light){
+  const a=agg();
+  const tri=[1,2,3,4,5].map(t=>igdQ.filter(p=>p.tri===t).length);
+  const avgWait=igdQ.reduce((s,p)=>s+p.wait,0)/igdQ.length;
+  const waitBed=igdQ.filter(p=>p.status==='Menunggu bed').length;
+  $('#igdStats').innerHTML=[
+    ['Pasien aktif',igdQ.length,'di IGD sekarang','var(--ink)'],
+    ['P1 resusitasi',tri[0],'segera','var(--p1)'],
+    ['P2 emergensi',tri[1],'≤ 10 menit','var(--p2)'],
+    ['Rata-rata tunggu',n1(avgWait)+"'",'target ≤ 30 mnt',avgWait>30?'var(--p1)':'var(--p4)'],
+    ['Menunggu bed',waitBed,'boarding','var(--p3)'],
+    ['Kunjungan '+PERIOD[state.period].l,n0(a.igdVisit),'total','var(--blue)'],
+  ].map(([l,v,s,c])=>`<div class="card"><div style="font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--ink3);font-weight:600">${l}</div>
+    <div class="mono" style="font-size:26px;font-weight:700;color:${c};margin-top:4px">${v}</div><div class="note" style="margin-top:2px">${s}</div></div>`).join('');
+
+  if(light&&state.charts.cTriage){
+    const ch=state.charts.cTriage;ch.data.datasets[0].data=tri;ch.update('none');
+  }else{
+    mk('cTriage',{type:'doughnut',data:{labels:['P1 Resusitasi','P2 Emergensi','P3 Urgen','P4 Kurang urgen','P5 Tidak urgen'],
+      datasets:[{data:tri,backgroundColor:[C.p1,C.p2,C.p3,C.p4,C.p5],borderColor:'#FFFFFF',borderWidth:2,hoverOffset:8}]},
+      options:{cutout:'58%',plugins:{legend:{position:'bottom'}}}});
+  }
+
+  $('#igdSub').textContent=igdQ.length+' pasien · diperbarui otomatis';
+  const sorted=[...igdQ].sort((a,b)=>a.tri-b.tri||b.wait-a.wait);
+  $('#tIgd').innerHTML=`<thead><tr><th>Triase</th><th>Pasien</th><th class="num">Usia</th><th>Keluhan / diagnosis</th><th>Status</th><th>Penjamin</th><th class="num">Tunggu</th></tr></thead><tbody>`+
+    sorted.map(p=>{const cl=['r','o','y','g','n'][p.tri-1];
+    const over=(p.tri<=2&&p.wait>10)||(p.tri===3&&p.wait>30);
+    return `<tr><td><span class="pill ${cl}">P${p.tri}</span></td><td><b>${p.nm}</b> <span style="color:var(--ink3)" class="mono">${p.id}</span></td>
+    <td class="num">${p.age}</td><td>${p.dx}</td><td>${p.status}</td><td>${p.payor}</td>
+    <td class="num" style="color:${over?'var(--p1)':'var(--ink2)'};font-weight:${over?700:400}">${p.wait}'</td></tr>`}).join('')+'</tbody>';
+
+  if(light)return;
+  const hrs=[...Array(24)].map((_,i)=>String(i).padStart(2,'0')+':00');
+  const shape=[.3,.2,.15,.15,.2,.35,.6,.85,1,1.05,1,.9,.85,.9,.95,1,1.1,1.2,1.15,1,.85,.7,.55,.4];
+  const base=a.igdVisit/(30*a.k)/24*3;
+  const now=new Date().getHours();
+  mk('cIgdHour',{data:{labels:hrs,datasets:[
+    {type:'bar',label:'Hari ini',data:shape.map((s,i)=>i<=now?Math.round(base*s*R(.8,1.25)):null),backgroundColor:C.aqua,borderRadius:3},
+    {type:'line',label:'Rata-rata 30 hari',data:shape.map(s=>Math.round(base*s)),borderColor:C.p2,borderWidth:1.6,pointRadius:0,tension:.4,borderDash:[4,3]}
+  ]},options:{scales:{x:{...GRID,ticks:{maxTicksLimit:12}},y:GRID}}});
+
+  const F=[['Datang ke IGD',100],['Triase selesai',97],['Pemeriksaan dokter',94],['Pemeriksaan penunjang',68],['Rawat inap / observasi',34],['Masuk bed rawat inap',31]];
+  $('#funnel').innerHTML=F.map((f,i)=>{
+    const v=Math.round(a.igdVisit*f[1]/100);
+    const drop=i?Math.round((F[i-1][1]-f[1])/F[i-1][1]*100):0;
+    return `<div style="margin-bottom:11px">
+      <div class="flexb" style="margin-bottom:4px"><span style="font-size:12px">${f[0]}</span>
+      <span class="mono" style="font-size:12px"><b style="color:var(--ink)">${n0(v)}</b> <span style="color:var(--ink3)">${f[1]}%</span>${i?` <span style="color:var(--p2)">−${drop}%</span>`:''}</span></div>
+      <div class="mbar" style="height:8px"><i style="width:${f[1]}%;background:linear-gradient(90deg,var(--sage),var(--green));opacity:${1-i*.12}"></i></div></div>`;
+  }).join('')+`<div class="note">Konversi IGD ke rawat inap ${34}% — di atas tolok ukur RS tipe B (28–32%). Titik bocor terbesar di penunjang: ${(F[2][1]-F[3][1])}% pasien pulang sebelum hasil keluar.</div>`;
+}
+
+/* ========== 4. LAYANAN ========== */
+function renderSvc(){
+  const a=agg(),k=a.k;
+  const polis=POLI.map(([n,d,dr])=>{
+    const slot=dr*24,book=Math.round(slot*R(.62,.99)),done=Math.round(book*R(.55,.9)),wait=RI(18,88);
+    return{n,d,dr,slot,book,done,wait,queue:book-done};
+  });
+  const tw=polis.reduce((s,p)=>s+p.wait,0)/polis.length;
+  const tq=polis.reduce((s,p)=>s+p.queue,0);
+  $('#poliStats').innerHTML=[
+    kpi({lab:'Kunjungan rawat jalan',val:n0(a.outpatient),unit:'kunj.',chg:r1(R(-1,8)),tone:'good'}),
+    kpi({lab:'Antrean aktif',val:n0(tq),unit:'pasien',chg:r1(R(-8,12)),tone:'warn'}),
+    kpi({lab:'Waktu tunggu rata-rata',val:n0(tw),unit:'menit',chg:r1(R(-9,5)),tone:tw>60?'bad':'good',tgt:Math.min(100,60/tw*100),tgtLab:'target ≤ 60 menit'}),
+    kpi({lab:'Utilisasi slot dokter',val:n1(polis.reduce((s,p)=>s+p.book/p.slot,0)/polis.length*100),unit:'%',chg:r1(R(-2,4)),tone:'good'}),
+  ].join('');
+  $('#tPoli').innerHTML=`<thead><tr><th>Poliklinik</th><th>Dokter jaga</th><th class="num">Dokter</th><th class="num">Slot</th><th class="num">Terisi</th><th>Utilisasi</th><th class="num">Antre</th><th class="num">Tunggu</th></tr></thead><tbody>`+
+    polis.sort((a,b)=>b.queue-a.queue).map(p=>{const u=p.book/p.slot*100;
+    return `<tr><td><b>${p.n}</b></td><td>${p.d}</td><td class="num">${p.dr}</td><td class="num">${p.slot}</td><td class="num">${p.book}</td>
+    <td><div class="mbar"><i style="width:${u}%;background:${u>90?'var(--p2)':'var(--aqua)'}"></i></div></td>
+    <td class="num">${p.queue}</td><td class="num" style="color:${p.wait>60?"var(--p1)":"var(--deep)"}">${p.wait}'</td></tr>`}).join('')+'</tbody>';
+  mk('cWait',{type:'bar',data:{labels:polis.map(p=>p.n.split(' ')[0]),datasets:[
+    {label:'Waktu tunggu (mnt)',data:polis.map(p=>p.wait),backgroundColor:polis.map(p=>p.wait>60?C.p1:C.aqua),borderRadius:4},
+    {type:'line',label:'Target 60 mnt',data:polis.map(()=>60),borderColor:C.p3,borderDash:[5,4],pointRadius:0,borderWidth:1.4}
+  ]},options:{scales:{x:{...GRID,ticks:{maxRotation:60,minRotation:45}},y:GRID}}});
+
+  const OKR=[...Array(8)].map((_,i)=>{
+    const cases=RI(2,5),used=+(cases*R(1.2,2.6)).toFixed(1);
+    return{ok:'OK '+(i+1),spec:pick(['Bedah Umum','Obstetri','Ortopedi','Mata','THT','Urologi','Bedah Anak','Bedah Saraf']),cases,used,avail:14,
+      onTime:Math.random()<.72,now:pick(['Berlangsung','Persiapan','Bersih-bersih','Kosong','Selesai'])};
+  });
+  const tot=OKR.reduce((s,o)=>s+o.used,0),util=tot/(8*14)*100;
+  $('#okStats').innerHTML=[
+    kpi({lab:'Tindakan operasi',val:n0(a.surgery),unit:'kasus',chg:r1(R(-3,10)),tone:'good'}),
+    kpi({lab:'Utilisasi OK',val:n1(util),unit:'%',chg:r1(R(-4,6)),tone:util>70?'good':'warn',tgt:util/75*100,tgtLab:'target 75%'}),
+    kpi({lab:'Ketepatan waktu mulai',val:n1(OKR.filter(o=>o.onTime).length/8*100),unit:'%',chg:r1(R(-5,7)),tone:'warn'}),
+    kpi({lab:'Penundaan elektif',val:n1(R(2.1,5.4)),unit:'%',chg:r1(R(-12,4)),tone:'good',vs:'maks 5%'}),
+  ].join('');
+  $('#tOk').innerHTML=`<thead><tr><th>Kamar</th><th>Spesialisasi</th><th class="num">Kasus</th><th class="num">Jam pakai</th><th>Utilisasi</th><th>Mulai tepat waktu</th><th>Status</th></tr></thead><tbody>`+
+    OKR.map(o=>{const u=o.used/o.avail*100;
+    return `<tr><td><b>${o.ok}</b></td><td>${o.spec}</td><td class="num">${o.cases}</td><td class="num">${n1(o.used)} / 14</td>
+    <td><div class="mbar"><i style="width:${u}%;background:${u>80?'var(--p4)':u>50?'var(--aqua)':'var(--p2)'}"></i></div></td>
+    <td><span class="pill ${o.onTime?'g':'o'}">${o.onTime?'Ya':'Terlambat'}</span></td>
+    <td><span class="pill ${o.now==='Berlangsung'?'b':o.now==='Kosong'?'n':'y'}">${o.now}</span></td></tr>`}).join('')+'</tbody>';
+  mk('cOk',{type:'bar',data:{labels:OKR.map(o=>o.ok),datasets:[
+    {label:'Jam terpakai',data:OKR.map(o=>o.used),backgroundColor:C.blue,borderRadius:4,stack:'a'},
+    {label:'Menganggur',data:OKR.map(o=>+(14-o.used).toFixed(1)),backgroundColor:C.empty,borderRadius:4,stack:'a'}]},
+    options:{scales:{x:{...GRID,stacked:true},y:{...GRID,stacked:true,ticks:{callback:v=>v+' j'}}}}});
+}
+
+/* ========== 5. RCM ========== */
+function renderRcm(){
+  const a=agg();
+  const claim=a.rev*.606;
+  const aging=[claim*.42,claim*.27,claim*.16,claim*.09,claim*.06];
+  const ar=r1(R(48,62));
+  $('#rcmStats').innerHTML=[
+    kpi({lab:'Nilai klaim diajukan',val:n1(claim),unit:'miliar',chg:r1(R(-2,9)),tone:'good'}),
+    kpi({lab:'Umur piutang (AR days)',val:n1(ar),unit:'hari',chg:r1(R(-5,8)),tone:ar>55?'bad':'warn',tgt:Math.min(100,45/ar*100),tgtLab:'target ≤ 45 hari'}),
+    kpi({lab:'Tingkat klaim disetujui',val:n1(R(93,97.5)),unit:'%',chg:r1(R(-1,2)),tone:'good'}),
+    kpi({lab:'Klaim dispute',val:n0(RI(70,160)),unit:'berkas',chg:r1(R(-14,18)),tone:'bad'}),
+  ].join('');
+  mk('cAging',{type:'bar',data:{labels:['0–30 hari','31–60','61–90','91–120','> 120'],
+    datasets:[{data:aging.map(v=>+v.toFixed(1)),backgroundColor:[C.p4,C.aqua,C.p3,C.p2,C.p1],borderRadius:5}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>miliar(c.raw)}}},scales:{x:GRID,y:{...GRID,ticks:{callback:v=>v+' M'}}}}});
+  const st=[['Terkirim',RI(900,1400)],['Verifikasi',RI(400,700)],['Disetujui',RI(1400,2100)],['Pending',RI(120,260)],['Dispute',RI(70,160)],['Ditolak',RI(20,60)]];
+  mk('cClaim',{type:'bar',data:{labels:st.map(s=>s[0]),datasets:[{data:st.map(s=>s[1]),
+    backgroundColor:[C.blue,C.violet,C.p4,C.p3,C.p2,C.p1],borderRadius:5}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false}},scales:{x:GRID,y:{grid:{display:false},border:{display:false}}}}});
+
+  $('#tCbg').innerHTML=`<thead><tr><th>Kode</th><th>Deskripsi</th><th class="num">Kasus</th><th class="num">Klaim</th><th class="num">Biaya riil</th><th class="num">Selisih</th></tr></thead><tbody>`+
+    CBG.map(([c,d,v])=>{const val=v*a.k*(state.branch==='ALL'?1:.09);
+      const cost=val*R(.72,1.14),marg=val-cost;
+      return `<tr><td class="mono"><b>${c}</b></td><td>${d}</td><td class="num">${n0(val*38)}</td>
+      <td class="num">${n1(val)} M</td><td class="num">${n1(cost)} M</td>
+      <td class="num" style="color:${marg>0?'var(--p4)':'var(--p1)'};font-weight:600">${marg>0?'+':''}${n1(marg)} M</td></tr>`}).join('')+'</tbody>';
+
+  const reasons=['Koding diagnosis tidak sesuai','Berkas resume medis tidak lengkap','Ketidaksesuaian tindakan','Naik kelas tanpa persetujuan','Verifikasi ganda','Kriteria rawat inap tidak terpenuhi'];
+  $('#tDispute').innerHTML=`<thead><tr><th>No. klaim</th><th>Alasan</th><th class="num">Nilai</th><th class="num">Umur</th><th>Status</th></tr></thead><tbody>`+
+    [...Array(10)].map(()=>{const age=RI(12,140);
+    return `<tr><td class="mono">KL-26${RI(10000,99999)}</td><td>${pick(reasons)}</td>
+    <td class="num">${rp(RI(3,48)*1e6)}</td><td class="num" style="color:${age>90?'var(--p1)':age>60?'var(--p2)':'var(--ink2)'}">${age} hr</td>
+    <td><span class="pill ${age>90?'r':'o'}">${age>90?'Eskalasi':'Koding ulang'}</span></td></tr>`}).join('')+'</tbody>';
+}
+
+/* ========== 6. FARMASI ========== */
+function renderFar(){
+  const a=agg();
+  const inv=a.rev*.19;
+  const rows=DRUGS.map(([n,c])=>{
+    const stok=RI(40,1400),pakai=RI(8,180),days=Math.round(stok/Math.max(1,pakai)*7);
+    return{n,c,stok,pakai,days,val:stok*RI(8,320)*1000,exp:RI(20,720)};
+  }).sort((a,b)=>a.days-b.days);
+  const crit=rows.filter(r=>r.days<7).length;
+  $('#farStats').innerHTML=[
+    kpi({lab:'Nilai persediaan',val:n1(inv),unit:'miliar',chg:r1(R(-6,4)),tone:'good'}),
+    kpi({lab:'Rasio biaya obat',val:n1(R(28,34)),unit:'% pendapatan',chg:r1(R(-3,2)),tone:'warn',vs:'ambang 32%'}),
+    kpi({lab:'Item stok kritis',val:crit,unit:'item',chg:r1(R(-20,25)),tone:crit>3?'bad':'good',spark:false}),
+    kpi({lab:'Kedaluwarsa < 90 hari',val:rp(R(180,640)*1e6),chg:r1(R(-10,15)),tone:'bad',spark:false}),
+  ].join('');
+  $('#tDrug').innerHTML=`<thead><tr><th>Item</th><th>Kelas</th><th class="num">Stok</th><th class="num">Pakai/mgg</th><th>Hari tersisa</th><th class="num">Nilai</th><th>Status</th></tr></thead><tbody>`+
+    rows.map(r=>{const p=Math.min(100,r.days/30*100);
+    return `<tr><td><b>${r.n}</b></td><td>${r.c}</td><td class="num">${n0(r.stok)}</td><td class="num">${n0(r.pakai)}</td>
+    <td><div style="display:flex;align-items:center;gap:8px"><div class="mbar" style="width:70px"><i style="width:${p}%;background:${r.days<7?'var(--p1)':r.days<14?'var(--p2)':'var(--p4)'}"></i></div>
+    <span class="mono" style="font-size:11px">${r.days} hr</span></div></td>
+    <td class="num">${rp(r.val)}</td>
+    <td><span class="pill ${r.days<7?'r':r.days<14?'o':'g'}">${r.days<7?'Pesan sekarang':r.days<14?'Segera pesan':'Aman'}</span></td></tr>`}).join('')+'</tbody>';
+  mk('cExp',{type:'doughnut',data:{labels:['< 30 hari','30–90 hari','90–180 hari','180–365 hari','> 1 tahun'],
+    datasets:[{data:[R(.05,.12),R(.08,.16),R(.14,.22),R(.25,.35),R(.25,.4)].map(x=>+(inv*x).toFixed(2)),
+    backgroundColor:[C.p1,C.p2,C.p3,C.aqua,C.p4],borderColor:'#FFFFFF',borderWidth:2,hoverOffset:8}]},
+    options:{cutout:'60%',plugins:{legend:{position:'bottom'},tooltip:{callbacks:{label:c=>c.label+': '+miliar(c.raw)}}}}});
+}
+
+/* ========== 7. SDM ========== */
+function renderSdm(){
+  const a=agg(),scale=a.beds/2705;
+  const docs=Math.round(742*scale),nurse=Math.round(2180*scale),staff=Math.round(1460*scale);
+  $('#sdmStats').innerHTML=[
+    kpi({lab:'Dokter (tetap & mitra)',val:n0(docs),unit:'orang',chg:r1(R(-1,4)),tone:'good',spark:false}),
+    kpi({lab:'Perawat & bidan',val:n0(nurse),unit:'orang',chg:r1(R(-2,3)),tone:'good',spark:false}),
+    kpi({lab:'Rasio perawat : bed',val:n1(nurse/a.beds),unit:': 1',chg:r1(R(-2,3)),tone:'good',spark:false}),
+    kpi({lab:'Perputaran karyawan',val:n1(R(8,14)),unit:'% tahunan',chg:r1(R(-9,6)),tone:'warn',spark:false}),
+  ].join('');
+  const dr=[...Array(14)].map(()=>{
+    const sp=pick(SPES),pt=RI(60,420),rev=+(pt*R(.8,3.4)/100).toFixed(2);
+    return{n:'dr. '+nm()+', '+sp,sp,pt,rev,rate:+R(3.4,4.9).toFixed(1),slot:RI(60,95)};
+  }).sort((a,b)=>b.rev-a.rev);
+  $('#tDoc').innerHTML=`<thead><tr><th>Dokter</th><th>Spesialisasi</th><th class="num">Pasien</th><th class="num">Pendapatan</th><th>Utilisasi jadwal</th><th class="num">Rating</th></tr></thead><tbody>`+
+    dr.map(d=>`<tr><td><b>${d.n}</b></td><td>${d.sp}</td><td class="num">${n0(d.pt)}</td>
+    <td class="num"><b>${n1(d.rev*a.k*7)} M</b></td>
+    <td><div class="mbar"><i style="width:${d.slot}%;background:${d.slot>85?'var(--p4)':'var(--aqua)'}"></i></div></td>
+    <td class="num" style="color:${d.rate>4.5?'var(--p4)':'var(--p3)'}">${n1(d.rate)} ★</td></tr>`).join('')+'</tbody>';
+  const units=WARDS.map(w=>w.n);
+  const ratio=WARDS.map(w=>w.cls==='Intensif'?+R(1.8,2.4).toFixed(1):w.cls==='VIP'?+R(2.5,3.5).toFixed(1):+R(4.2,7.4).toFixed(1));
+  const std=WARDS.map(w=>w.cls==='Intensif'?2:w.cls==='VIP'?3:6);
+  mk('cNurse',{type:'bar',data:{labels:units,datasets:[
+    {label:'Rasio aktual (pasien per perawat)',data:ratio,backgroundColor:ratio.map((r,i)=>r>std[i]?C.p2:C.aqua),borderRadius:4},
+    {type:'line',label:'Standar',data:std,borderColor:C.p1,borderDash:[5,4],pointRadius:0,borderWidth:1.4}
+  ]},options:{indexAxis:'y',scales:{x:GRID,y:{grid:{display:false},border:{display:false}}}}});
+}
+
+/* ========== 8. MUTU ========== */
+function renderMutu(){
+  $('#mutuStats').innerHTML=[
+    kpi({lab:'Kepuasan pasien',val:n1(R(85,90)),unit:'%',chg:r1(R(-1,3)),tone:'good',tgt:R(90,100),tgtLab:'standar Kemenkes ≥ 76%'}),
+    kpi({lab:'Angka kematian bersih (NDR)',val:n1(R(14,24)),unit:'‰',chg:r1(R(-8,5)),tone:'good',vs:'ambang ≤ 25‰'}),
+    kpi({lab:'Rawat inap ulang 30 hari',val:n1(R(3.8,6.4)),unit:'%',chg:r1(R(-6,8)),tone:'warn'}),
+    kpi({lab:'Insiden keselamatan',val:RI(4,14),unit:'laporan',chg:r1(R(-25,20)),tone:'warn',spark:false}),
+  ].join('');
+  const hai=['VAP','IADP','ISK terkait kateter','Infeksi luka operasi','Flebitis','Dekubitus'];
+  const act=hai.map(()=>+R(.4,3.6).toFixed(1));
+  const thr=[2.5,3.0,3.5,2.0,5.0,1.5];
+  mk('cHai',{type:'radar',data:{labels:hai,datasets:[
+    {label:'Capaian',data:act,borderColor:C.aqua,backgroundColor:'rgba(46,158,107,.18)',pointBackgroundColor:C.aqua,borderWidth:2},
+    {label:'Ambang batas',data:thr,borderColor:C.p1,backgroundColor:'rgba(220,63,82,.05)',borderDash:[4,3],pointRadius:0,borderWidth:1.4}
+  ]},options:{scales:{r:{grid:{color:C.line},angleLines:{color:C.line},pointLabels:{color:'#5B7075',font:{size:10}},ticks:{display:false,backdropColor:'transparent'}}}}});
+  const mo=['Feb','Mar','Apr','Mei','Jun','Jul'];
+  mk('cIkp',{type:'bar',data:{labels:mo,datasets:[
+    {label:'KNC (nyaris cedera)',data:mo.map(()=>RI(4,14)),backgroundColor:C.p4,borderRadius:3,stack:'a'},
+    {label:'KTC (tidak cedera)',data:mo.map(()=>RI(2,9)),backgroundColor:C.p3,borderRadius:3,stack:'a'},
+    {label:'KTD (tidak diharapkan)',data:mo.map(()=>RI(1,5)),backgroundColor:C.p2,borderRadius:3,stack:'a'},
+    {label:'Sentinel',data:mo.map(()=>RI(0,1)),backgroundColor:C.p1,borderRadius:3,stack:'a'},
+  ]},options:{scales:{x:{...GRID,stacked:true},y:{...GRID,stacked:true}}}});
+  $('#tInm').innerHTML=`<thead><tr><th>Indikator</th><th class="num">Capaian</th><th class="num">Standar</th><th>Progres</th><th>Status</th></tr></thead><tbody>`+
+    INM.map(([n,v,s,u])=>{
+      const maks=u.includes('maks')||n.includes('jatuh');
+      const ok=maks?v<=s+.5:v>=s;
+      const p=maks?Math.max(0,100-(v/(s||1))*100):Math.min(100,v/s*100);
+      return `<tr><td><b>${n}</b></td><td class="num">${n1(v)}</td><td class="num" style="color:var(--ink3)">${n1(s)} ${u.replace('%','%')}</td>
+      <td><div class="mbar"><i style="width:${p}%;background:${ok?'var(--p4)':'var(--p2)'}"></i></div></td>
+      <td><span class="pill ${ok?'g':'o'}">${ok?'Memenuhi':'Di bawah standar'}</span></td></tr>`}).join('')+'</tbody>';
+}
+
+/* ========== 9. JARINGAN ========== */
+function renderNet(){
+  const k=PERIOD[state.period].k;
+  const rows=BRANCHES.map(b=>({...b,revP:b.rev*k,ebitV:b.rev*k*b.ebit/100,pt:Math.round(b.beds*b.bor/100),
+    growth:+R(-6,18).toFixed(1),rev_bed:+(b.rev*k*1000/b.beds).toFixed(0)}));
+  const tot=rows.reduce((s,b)=>s+b.revP,0);
+  const best=[...rows].sort((a,b)=>b.ebit-a.ebit)[0];
+  const worst=[...rows].sort((a,b)=>a.bor-b.bor)[0];
+  $('#netStats').innerHTML=[
+    kpi({lab:'Rumah sakit aktif',val:16,unit:'unit',chg:6.7,tone:'good',vs:'vs 2025',spark:false}),
+    kpi({lab:'Total kapasitas',val:n0(rows.reduce((s,b)=>s+b.beds,0)),unit:'bed',chg:4.2,tone:'good',spark:false}),
+    kpi({lab:'Pendapatan jaringan',val:n1(tot),unit:'miliar',chg:r1(R(2,12)),tone:'good'}),
+    kpi({lab:'Cabang di bawah target BOR',val:rows.filter(b=>b.bor<75).length,unit:'unit',chg:-12.5,tone:'warn',spark:false}),
+  ].join('');
+  const cols=[['n','Rumah sakit',0],['city','Kota',0],['type','Kelas',0],['beds','Bed',1],['bor','BOR',1],['alos','ALOS',1],['pt','Pasien',1],['revP','Pendapatan',1],['ebit','Margin',1],['growth','Tumbuh',1]];
+  const sorted=[...rows].sort((a,b)=>{const k2=state.netSort.k;const va=a[k2],vb=b[k2];
+    return (typeof va==='string'?va.localeCompare(vb):va-vb)*state.netSort.d});
+  $('#tNet').innerHTML=`<thead><tr><th style="text-align:center">#</th>`+cols.map(c=>`<th class="${c[2]?'num':''}" data-k="${c[0]}">${c[1]}${state.netSort.k===c[0]?(state.netSort.d>0?' ↑':' ↓'):''}</th>`).join('')+`<th>Kontribusi</th></tr></thead><tbody>`+
+    sorted.map((b,i)=>`<tr><td style="text-align:center;color:var(--ink3)" class="mono">${i+1}</td>
+      <td><b>${b.n}</b></td><td>${b.city}</td><td><span class="pill ${b.type==='Utama'?'b':b.type==='Madya'?'n':'n'}">${b.type}</span></td>
+      <td class="num">${b.beds}</td>
+      <td class="num" style="color:${b.bor>85?'var(--p2)':b.bor>75?'var(--p4)':'var(--p1)'};font-weight:600">${n1(b.bor)}%</td>
+      <td class="num">${n1(b.alos)}</td><td class="num">${n0(b.pt)}</td>
+      <td class="num"><b>${n1(b.revP)} M</b></td>
+      <td class="num" style="color:${b.ebit>20?'var(--p4)':'var(--p3)'}">${n1(b.ebit)}%</td>
+      <td class="num ${b.growth>0?'up':'down'}" style="font-weight:600">${b.growth>0?'+':''}${n1(b.growth)}%</td>
+      <td><div class="mbar"><i style="width:${b.revP/tot*100*4}%;background:linear-gradient(90deg,var(--sage),var(--green))"></i></div></td></tr>`).join('')+'</tbody>';
+  $$('#tNet th[data-k]').forEach(th=>th.onclick=()=>{
+    const k2=th.dataset.k;
+    state.netSort = state.netSort.k===k2?{k:k2,d:-state.netSort.d}:{k:k2,d:-1};
+    renderNet();
+  });
+  mk('cScatter',{type:'bubble',data:{datasets:[{label:'Cabang',
+    data:rows.map(b=>({x:b.bor,y:b.ebit,r:b.beds/22,nm:b.n})),
+    backgroundColor:rows.map(b=>b.bor>80&&b.ebit>20?'rgba(46,158,107,.45)':b.bor<75?'rgba(220,63,82,.40)':'rgba(27,127,184,.40)'),
+    borderColor:rows.map(b=>b.bor>80&&b.ebit>20?C.p4:b.bor<75?C.p1:C.aqua),borderWidth:1.4}]},
+    options:{plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>`${c.raw.nm} — BOR ${n1(c.raw.x)}% · margin ${n1(c.raw.y)}%`}}},
+    scales:{x:{...GRID,title:{display:true,text:'BOR (%)',color:C.ink3},min:65,max:90},
+            y:{...GRID,title:{display:true,text:'Margin EBITDA (%)',color:C.ink3},min:10,max:28}}}});
+  const top=[...rows].sort((a,b)=>b.revP-a.revP).slice(0,10);
+  mk('cNetRev',{type:'bar',data:{labels:top.map(b=>b.n.replace('Hermina ','')),
+    datasets:[{data:top.map(b=>+b.revP.toFixed(1)),backgroundColor:top.map((_,i)=>i<3?C.aqua:C.blue),borderRadius:4}]},
+    options:{indexAxis:'y',plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>miliar(c.raw)}}},
+    scales:{x:{...GRID,ticks:{callback:v=>v+' M'}},y:{grid:{display:false},border:{display:false}}}}});
+}
+
+/* ========== 10. FINANSIAL ========== */
+function renderFin(){
+  const a=agg(),rev=a.rev;
+  const cost=[['Beban tenaga kerja',.32],['Obat & alat kesehatan',.29],['Jasa medis dokter',.14],['Umum & administrasi',.08],['Penyusutan',.05],['Utilitas & pemeliharaan',.04]];
+  const ebitda=rev*(a.ebitM/100);
+  $('#finStats').innerHTML=[
+    kpi({lab:'Pendapatan',val:n1(rev),unit:'miliar',chg:r1(R(2,11)),tone:'good'}),
+    kpi({lab:'EBITDA',val:n1(ebitda),unit:'miliar',chg:r1(R(-1,14)),tone:'good'}),
+    kpi({lab:'Pendapatan per bed',val:rp(rev*1e9/a.beds),chg:r1(R(-2,8)),tone:'good',spark:false}),
+    kpi({lab:'Pendapatan per pasien',val:rp(rev*1e9/(a.admits+a.outpatient)),chg:r1(R(-4,6)),tone:'warn',spark:false}),
+  ].join('');
+  const mo=['Jan','Feb','Mar','Apr','Mei','Jun','Jul'];
+  const base=activeBranches().reduce((s,b)=>s+b.rev,0);
+  const rv=mo.map((_,i)=>+(base*(1+i*.015)*R(.94,1.08)).toFixed(1));
+  const eb=rv.map(v=>+(v*R(.185,.245)).toFixed(1));
+  mk('cFin',{data:{labels:mo,datasets:[
+    {type:'bar',label:'Pendapatan',data:rv,backgroundColor:'rgba(27,127,184,.72)',borderRadius:4,order:3},
+    {type:'bar',label:'EBITDA',data:eb,backgroundColor:C.aqua,borderRadius:4,order:2},
+    {type:'line',label:'Margin EBITDA (%)',data:eb.map((e,i)=>+(e/rv[i]*100).toFixed(1)),borderColor:C.p3,borderWidth:2,pointRadius:3,tension:.35,yAxisID:'y1',order:1}
+  ]},options:{scales:{x:GRID,y:{...GRID,ticks:{callback:v=>v+' M'}},
+    y1:{grid:{display:false},border:{display:false},position:'right',min:0,max:40,ticks:{callback:v=>v+'%'}}}}});
+  mk('cCost',{type:'doughnut',data:{labels:cost.map(c=>c[0]),
+    datasets:[{data:cost.map(c=>+(c[1]*100).toFixed(1)),backgroundColor:[C.blue,C.aqua,C.violet,C.wood,C.p5,C.sage],
+    borderColor:'#FFFFFF',borderWidth:2,hoverOffset:8}]},
+    options:{cutout:'58%',plugins:{legend:{position:'right'},tooltip:{callbacks:{label:c=>c.label+': '+c.raw+'% (Rp '+n1(rev*c.raw/100)+' M)'}}}}});
+  const prev=rev*R(.88,.97);
+  const pnl=[['Pendapatan usaha',rev,prev],['Beban pokok layanan',-rev*.61,-prev*.63],['Laba kotor',rev*.39,prev*.37],
+    ['Beban usaha',-rev*.17,-prev*.165],['EBITDA',ebitda,prev*(a.ebitM-1.4)/100],['Penyusutan & amortisasi',-rev*.05,-prev*.052],
+    ['Laba usaha',rev*.17,prev*.155],['Beban keuangan',-rev*.018,-prev*.021],['Laba bersih',rev*.118,prev*.104]];
+  $('#tPnl').innerHTML=`<thead><tr><th>Pos</th><th class="num">Periode ini</th><th class="num">Periode lalu</th><th class="num">Δ</th><th class="num">% pendapatan</th></tr></thead><tbody>`+
+    pnl.map(([n,v,p])=>{const d=(v-p)/Math.abs(p)*100;const bold=['Laba kotor','EBITDA','Laba usaha','Laba bersih'].includes(n);
+    return `<tr style="${bold?'background:rgba(79,209,197,.04)':''}"><td ${bold?'style="color:var(--ink);font-weight:700"':''}>${n}</td>
+    <td class="num" ${bold?'style="color:var(--ink);font-weight:700"':''}>${n1(v)} M</td>
+    <td class="num">${n1(p)} M</td>
+    <td class="num ${d>0?'up':'down'}" style="font-weight:600">${d>0?'+':''}${n1(d)}%</td>
+    <td class="num">${n1(v/rev*100)}%</td></tr>`}).join('')+'</tbody>';
+}
+
+/* ========== RENDER ALL ========== */
+function renderAll(){
+  renderOverview();renderBed();renderIgd();renderSvc();renderRcm();renderFar();renderSdm();renderMutu();renderNet();renderFin();
+  $('#lastSync').textContent='sinkron terakhir '+new Date().toLocaleTimeString('id-ID',{hour12:false})+' WIB';
+}
+renderAll();
+
+/* ========== REAL-TIME ENGINE ========== */
+setInterval(()=>{ // bed churn
+  for(let i=0;i<RI(1,3);i++){
+    const b=beds[RI(0,beds.length-1)];
+    if(b.st==='occ'&&Math.random()<.35){b.st='clean';b.pt=null;b.dx=null;b.payor=null;b.los=null;b.dpjp=null;b.plan=null}
+    else if(b.st==='clean'){b.st='free'}
+    else if(b.st==='free'&&Math.random()<.55){
+      b.st=b.ward==='iso'?'iso':(b.ward==='icu'&&Math.random()<.3?'crit':'occ');
+      b.pt=nm();b.age=RI(1,84);b.dx=pick(DX);b.payor=payor();b.los=1;
+      b.dpjp='dr. '+nm()+', Sp.'+pick(['PD','A','OG','B','JP','S']);b.plan='Lanjut rawat';
+    }
+  }
+  if($('#p-bed').classList.contains('on'))renderBed(true);
+},3000);
+
+setInterval(()=>{ // igd churn
+  if(Math.random()<.6&&igdQ.length<28)igdQ.push(newPt());
+  if(Math.random()<.5&&igdQ.length>6){const i=RI(0,igdQ.length-1);igdQ.splice(i,1)}
+  igdQ.forEach(p=>p.wait+=RI(0,2));
+  if($('#p-igd').classList.contains('on'))renderIgd(true);
+},3500);
+
+setInterval(()=>{ // gentle drift on branch metrics
+  BRANCHES.forEach(b=>{b.bor=Math.max(62,Math.min(94,b.bor+R(-.4,.4)))});
+  $('#lastSync').textContent='sinkron terakhir '+new Date().toLocaleTimeString('id-ID',{hour12:false})+' WIB';
+  if($('#p-overview').classList.contains('on')){
+    const a=agg();
+    const el=$('#kpiTop .kpi .val');if(el)el.innerHTML=n1(a.bor)+'<small>%</small>';
+  }
+},6000);
+</script>
+</body>
+</html>
